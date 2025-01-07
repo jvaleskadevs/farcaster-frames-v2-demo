@@ -10,12 +10,13 @@ import {
   useDisconnect,
   useConnect,
 } from "wagmi";
-
+import { useRouter } from 'next/navigation';
 import { config } from "~/components/WagmiProvider";
 import { Button } from "~/components/ui/Button";
 import { truncateAddress } from "~/lib/truncateAddress";
 
 export default function Demo() {
+  const router = useRouter();
   const [isSDKLoaded, setIsSDKLoaded] = useState(false);
   const [context, setContext] = useState<Context.FrameContext>();
   const [isContextOpen, setIsContextOpen] = useState(false);
@@ -108,6 +109,10 @@ export default function Demo() {
   const toggleContext = useCallback(() => {
     setIsContextOpen((prev) => !prev);
   }, []);
+  
+  const backToHome = () => {
+    router.push("/");
+  }
 
   const renderError = (error: Error | null) => {
     if (!error) return null;
@@ -234,6 +239,9 @@ export default function Demo() {
                 Sign Typed Data
               </Button>
               {isSignTypedError && renderError(signTypedError)}
+            </div>
+            <div className="mb-4">
+              <Button onClick={backToHome}>Back</Button>
             </div>
           </>
         )}
