@@ -240,11 +240,11 @@ export default function Demo() {
               </Button>
               {isSignTypedError && renderError(signTypedError)}
             </div>
-            <div className="mb-4">
-              <Button onClick={backToHome}>Back</Button>
-            </div>
           </>
         )}
+        <div className="mb-4">
+          <Button onClick={backToHome}>Back</Button>
+        </div>
       </div>
     </div>
   );

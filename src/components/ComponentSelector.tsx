@@ -24,13 +24,12 @@ export default function ComponentSelector() {
   
   return (
     <div className="w-[300px] mx-auto py-4 px-2">
-      <h1 className="text-2xl font-bold text-center mb-4">Frames v2 Demo</h1>
+      <h1 className="text-2xl font-bold text-center mb-8">Frames v2 Demo</h1>
 
       <div className="mb-4">
-        <h2 className="font-2xl font-bold">Demo</h2>
+        <h2 className="font-2xl font-bold mb-4">Menu</h2>
         <button
           onClick={() => router.push("/demo")}
-          className="flex items-center gap-2 transition-colors"
         >
           Demo
         </button>
