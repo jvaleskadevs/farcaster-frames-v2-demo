@@ -1,6 +1,7 @@
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import sdk from "@farcaster/frame-sdk";
+import { Button } from "~/components/ui/Button";
 
 export default function ComponentSelector() {
   const router = useRouter();
@@ -28,12 +29,21 @@ export default function ComponentSelector() {
 
       <div className="mb-4">
         <h2 className="font-2xl font-bold mb-4">Menu</h2>
-        <button
+        <Button
           onClick={() => router.push("/demo")}
         >
           Demo
-        </button>
+        </Button>
       </div>
+      
+      <div className="mb-4">
+        <Button
+          onClick={() => router.push("/onchain")}
+        >
+          Onchain 
+        </Button>
+      </div>    
+      
     </div>
   );
 }
