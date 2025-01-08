@@ -11,8 +11,10 @@ import {
   useConnect,
 } from "wagmi";
 import { useRouter } from 'next/navigation';
+import { encodeFunctionData } from 'viem';
 import { config } from "~/components/WagmiProvider";
 import { Button } from "~/components/ui/Button";
+import { yoinkAbi } from "~/abis/yoinkAbi";
 import { truncateAddress } from "~/lib/truncateAddress";
 
 export default function Onchain() {
@@ -58,16 +60,23 @@ export default function Onchain() {
   }, [isSDKLoaded]);
   
   const contractAddress = "0x4bBFD120d9f352A0BEd7a014bd67913a2007a878";
+  const contractAbi = yoinkAbi;
 
   const openUrl = useCallback(() => {
-    sdk.actions.openUrl(`https://base.org/address/${0x4bBFD120d9f352A0BEd7a014bd67913a2007a878}`);
+    sdk.actions.openUrl(`https://basescan.org/address/${contractAddress}`);
   }, []);
+  
+  const txData = encodeFunctionData({
+    abi: contractAbi,
+    functionName: "yoink",
+    args: []
+  });
 
   const sendTx = useCallback(() => {
     sendTransaction(
       {
         to: contractAddress,
-        data: "0x9846cd9efc000023c0",
+        data: txData || "0x9846cd9efc000023c0",
       },
       {
         onSuccess: (hash) => {
