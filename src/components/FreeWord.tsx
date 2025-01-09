@@ -9,7 +9,7 @@ import {
   useConnect,
 } from "wagmi";
 import { useRouter } from 'next/navigation';
-import { encodeFunctionData, parseEther } from 'viem';
+import { encodeFunctionData } from 'viem';
 import { config } from "~/components/WagmiProvider";
 import { Button } from "~/components/ui/Button";
 import { Input } from "~/components/ui/input";
@@ -61,7 +61,6 @@ export default function FreeWord() {
           functionName: "freeWord",
           args: [inputText]
         }),
-        value: parseEther("0.000069420") as bigint
       },
       {
         onSuccess: (hash) => {
@@ -95,7 +94,8 @@ export default function FreeWord() {
 
   return (
     <div className="w-[300px] mx-auto py-4 px-2">
-      <h1 className="text-2xl font-bold text-center mb-4">Words</h1>
+      <h1 className="text-2xl font-bold text-center mb-4">Free Word</h1>
+      <h3 className="my-2 font-semibold text-xs text-center">by jvaleska</h3>
 
       <div>
         <h2 className="font-2xl font-bold mb-4">Wallet</h2>
@@ -122,7 +122,7 @@ export default function FreeWord() {
           <>
             <div className="mb-4">
               <Label>
-                Just write something..
+                Just write something...
               </Label>
               <Input maxLength={32} onChange={(e) => onInputChange(e.target.value)} />
               {inputText &&

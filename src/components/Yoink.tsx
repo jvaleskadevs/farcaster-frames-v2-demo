@@ -90,7 +90,8 @@ export default function Yoink() {
 
   return (
     <div className="w-[300px] mx-auto py-4 px-2">
-      <h1 className="text-2xl font-bold text-center mb-4">Onchain Frames v2 Demo</h1>
+      <h1 className="text-2xl font-bold text-center mb-4">Yoink</h1>
+      <h3 className="my-2 font-semibold text-xs text-center">by horsefacts</h3>
 
       <div>
         <h2 className="font-2xl font-bold mb-4">Wallet</h2>
@@ -121,7 +122,7 @@ export default function Yoink() {
                 disabled={!isConnected || isSendTxPending}
                 isLoading={isSendTxPending}
               >
-                Send Transaction
+                Yoink
               </Button>
               {isSendTxError && renderError(sendTxError)}
               {txHash && (
@@ -139,7 +140,7 @@ export default function Yoink() {
               )}
             </div>
             <div className="mb-4">
-              <Button onClick={openUrl}>Open In Explorer</Button>
+              <Button onClick={openUrl}>Block Explorer</Button>
             </div>
           </>
         )}

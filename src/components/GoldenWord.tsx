@@ -96,6 +96,7 @@ export default function GoldenWord() {
   return (
     <div className="w-[300px] mx-auto py-4 px-2">
       <h1 className="text-2xl font-bold text-center mb-4">Words</h1>
+      <h3 className="my-2 font-semibold text-xs text-center">by jvaleska</h3>
 
       <div>
         <h2 className="font-2xl font-bold mb-4">Wallet</h2>
@@ -122,7 +123,7 @@ export default function GoldenWord() {
           <>
             <div className="mb-4">
               <Label>
-                Just write something..
+                Just write something...
               </Label>
               <Input maxLength={64} onChange={(e) => onInputChange(e.target.value)} />
               {inputText &&
