@@ -49,8 +49,12 @@ export default function FreeWord() {
   const contractAddress = "0xb25aa62b7422482767936e620769f0b0ee490edf";
 
   const openUrl = useCallback(() => {
-    sdk.actions.openUrl(`https://basescan.org/address/${contractAddress}`);
-  }, [contractAddress]);
+    if (txHash) {
+      sdk.actions.openUrl(`https://basescan.org/tx/${txHash}`);
+    } else {
+      sdk.actions.openUrl(`https://basescan.org/address/${contractAddress}`);
+    }
+  }, [contractAddress, txHash]);
 
   const sendTx = useCallback(() => {
     sendTransaction(
@@ -157,7 +161,7 @@ export default function FreeWord() {
               )}
             </div>
             <div className="mb-4">
-              <Button onClick={openUrl}>Open In Explorer</Button>
+              <Button onClick={openUrl}>Block Explorer</Button>
             </div>
           </>
         )}

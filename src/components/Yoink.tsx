@@ -47,8 +47,12 @@ export default function Yoink() {
   const contractAbi = yoinkAbi;
 
   const openUrl = useCallback(() => {
-    sdk.actions.openUrl(`https://basescan.org/address/${contractAddress}`);
-  }, [contractAddress]);
+    if (txHash) {
+      sdk.actions.openUrl(`https://basescan.org/tx/${txHash}`);
+    } else {
+      sdk.actions.openUrl(`https://basescan.org/address/${contractAddress}`);
+    }
+  }, [contractAddress, txHash]);
   
   const txData = encodeFunctionData({
     abi: contractAbi,
@@ -135,7 +139,7 @@ export default function Yoink() {
                       : isConfirmed
                       ? "Confirmed!"
                       : "Pending"}
-                  </div>
+                  </div>                 
                 </div>
               )}
             </div>

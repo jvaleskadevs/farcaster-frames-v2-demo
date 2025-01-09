@@ -25,7 +25,8 @@ export default function ComponentSelector() {
   
   return (
     <div className="w-[300px] mx-auto py-4 px-2">
-      <h1 className="text-2xl font-bold text-center mb-8">Frames v2 Demo</h1>
+      <h1 className="text-2xl font-bold text-center mb-8">Custom v2 Demo</h1>
+      <h3 className="my-2 font-semibold text-xs text-center">by jvaleska</h3>
 
       <div className="mb-4">
         <h2 className="font-2xl font-bold mb-4">Menu</h2>
