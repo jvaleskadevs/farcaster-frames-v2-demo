@@ -1,13 +1,15 @@
-import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import sdk from "@farcaster/frame-sdk";
+//import { Context } from '@farcaster/frame-core';
+import { useRouter } from 'next/navigation';
 import { Button } from "~/components/ui/Button";
 
-export default function ComponentSelector() {
+export default function Words() {
   const router = useRouter();
+  
   const [isSDKLoaded, setIsSDKLoaded] = useState(false);
   //const [context, setContext] = useState<Context.FrameContext>();
-  
+
   useEffect(() => {
     const load = async () => {
       //setContext(await sdk.context);
@@ -17,49 +19,45 @@ export default function ComponentSelector() {
       setIsSDKLoaded(true);
       load();
     }
-  }, [isSDKLoaded]);  
+  }, [isSDKLoaded]);
   
+  
+  const backToHome = () => {
+    router.push("/");
+  }
+
   if (!isSDKLoaded) {
     return <div>Loading...</div>;
   }
-  
+
   return (
     <div className="w-[300px] mx-auto py-4 px-2">
-      <h1 className="text-2xl font-bold text-center mb-8">Frames v2 Demo</h1>
+      <h1 className="text-2xl font-bold text-center mb-4">Words</h1>
 
-      <div className="mb-4">
-        <h2 className="font-2xl font-bold mb-4">Menu</h2>
+      <div>
+        <h2 className="font-2xl font-bold mb-4">Choose a Word</h2>
+
         <Button
-          onClick={() => router.push("/demo")}
+          onClick={() => router.push("/words/freeword")}
+          className="mb-4"
         >
-          Demo
+          Free Word
+        </Button>
+        
+        <Button
+          onClick={() => router.push("/words/goldenword")}
+          className="mb-4"
+        >
+          Golden Word
+        </Button>
+        
+        <Button
+          onClick={backToHome}
+          className="mb-4"
+        >
+          Back
         </Button>
       </div>
-      
-      <div className="mb-4">
-        <Button
-          onClick={() => router.push("/onchain")}
-        >
-          Onchain 
-        </Button>
-      </div>   
-      
-      <div className="mb-4">
-        <Button
-          onClick={() => router.push("/words")}
-        >
-          Words 
-        </Button>
-      </div>  
-
-      <div className="mb-4">
-        <Button
-          onClick={() => router.push("/yoink")}
-        >
-          Yoink 
-        </Button>
-      </div>  
-      
     </div>
   );
 }

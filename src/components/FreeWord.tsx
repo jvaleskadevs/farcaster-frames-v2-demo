@@ -4,22 +4,20 @@ import sdk from "@farcaster/frame-sdk";
 import {
   useAccount,
   useSendTransaction,
-  useSignMessage,
-  useSignTypedData,
   useWaitForTransactionReceipt,
   useDisconnect,
   useConnect,
 } from "wagmi";
 import { useRouter } from 'next/navigation';
-import { encodeFunctionData } from 'viem';
+import { encodeFunctionData, parseEther } from 'viem';
 import { config } from "~/components/WagmiProvider";
 import { Button } from "~/components/ui/Button";
 import { Input } from "~/components/ui/input";
 import { Label } from "~/components/ui/label";
-import { yoinkAbi } from "~/abis/yoinkAbi";
+import { wordsAbi } from "~/abis/wordsAbi";
 import { truncateAddress } from "~/lib/truncateAddress";
 
-export default function Onchain() {
+export default function FreeWord() {
   const router = useRouter();
   const [isSDKLoaded, setIsSDKLoaded] = useState(false);
   //const [context, setContext] = useState<Context.FrameContext>();
@@ -33,20 +31,6 @@ export default function Onchain() {
     isError: isSendTxError,
     isPending: isSendTxPending,
   } = useSendTransaction();
-
-  const {
-    signMessage,
-    error: signError,
-    isError: isSignError,
-    isPending: isSignPending,
-  } = useSignMessage();
-
-  const {
-    signTypedData,
-    error: signTypedError,
-    isError: isSignTypedError,
-    isPending: isSignTypedPending,
-  } = useSignTypedData();
 
   const { disconnect } = useDisconnect();
   const { connect } = useConnect();
@@ -62,24 +46,22 @@ export default function Onchain() {
     }
   }, [isSDKLoaded]);
   
-  const contractAddress = "0x4bBFD120d9f352A0BEd7a014bd67913a2007a878";
-  const contractAbi = yoinkAbi;
+  const contractAddress = "0xb25aa62b7422482767936e620769f0b0ee490edf";
 
   const openUrl = useCallback(() => {
     sdk.actions.openUrl(`https://basescan.org/address/${contractAddress}`);
   }, [contractAddress]);
-  
-  const txData = encodeFunctionData({
-    abi: contractAbi,
-    functionName: "yoink",
-    args: []
-  });
 
   const sendTx = useCallback(() => {
     sendTransaction(
       {
         to: contractAddress,
-        data: txData || "0x9846cd9efc000023c0",
+        data: encodeFunctionData({
+          abi: wordsAbi,
+          functionName: "freeWord",
+          args: [inputText]
+        }),
+        value: parseEther("0.000069420") as bigint
       },
       {
         onSuccess: (hash) => {
@@ -87,28 +69,7 @@ export default function Onchain() {
         },
       }
     );
-  }, [txData, sendTransaction]);
-
-  const sign = useCallback(() => {
-    signMessage({ message: "Hello from Frames v2!" });
-  }, [signMessage]);
-
-  const signTyped = useCallback(() => {
-    signTypedData({
-      domain: {
-        name: "Frames v2 Demo",
-        version: "1",
-        chainId: 8453,
-      },
-      types: {
-        Message: [{ name: "content", type: "string" }],
-      },
-      message: {
-        content: "Hello from Frames v2!",
-      },
-      primaryType: "Message",
-    });
-  }, [signTypedData]);
+  }, [sendTransaction, inputText]);
   
   const backToHome = () => {
     router.push("/");
@@ -134,7 +95,7 @@ export default function Onchain() {
 
   return (
     <div className="w-[300px] mx-auto py-4 px-2">
-      <h1 className="text-2xl font-bold text-center mb-4">Onchain Frames v2 Demo</h1>
+      <h1 className="text-2xl font-bold text-center mb-4">Words</h1>
 
       <div>
         <h2 className="font-2xl font-bold mb-4">Wallet</h2>
@@ -156,29 +117,29 @@ export default function Onchain() {
             {isConnected ? "Disconnect" : "Connect"}
           </Button>
         </div>
-        
-        <div className="mb-4">
-          <Label>
-            Just write something..
-          </Label>
-          <Input maxLength={32} onChange={(e) => onInputChange(e.target.value)} />
-          {inputText &&
-          <div className="p-2 bg-gray-100 dark:bg-gray-800 rounded-lg my-2">
-            <pre className="font-mono text-xs whitespace-pre-wrap break-words max-w-[260px] overflow-x-">
-              {inputText}
-            </pre>
-          </div>}
-        </div>
 
         {isConnected && (
           <>
+            <div className="mb-4">
+              <Label>
+                Just write something..
+              </Label>
+              <Input maxLength={32} onChange={(e) => onInputChange(e.target.value)} />
+              {inputText &&
+              <div className="p-2 bg-gray-100 dark:bg-gray-800 rounded-lg my-2">
+                <pre className="font-mono text-xs whitespace-pre-wrap break-words max-w-[260px] overflow-x-">
+                  {inputText}
+                </pre>
+              </div>}
+            </div>
+          
             <div className="mb-4">
               <Button
                 onClick={sendTx}
                 disabled={!isConnected || isSendTxPending}
                 isLoading={isSendTxPending}
               >
-                Send Transaction
+                Send
               </Button>
               {isSendTxError && renderError(sendTxError)}
               {txHash && (
@@ -194,26 +155,6 @@ export default function Onchain() {
                   </div>
                 </div>
               )}
-            </div>
-            <div className="mb-4">
-              <Button
-                onClick={sign}
-                disabled={!isConnected || isSignPending}
-                isLoading={isSignPending}
-              >
-                Sign Message
-              </Button>
-              {isSignError && renderError(signError)}
-            </div>
-            <div className="mb-4">
-              <Button
-                onClick={signTyped}
-                disabled={!isConnected || isSignTypedPending}
-                isLoading={isSignTypedPending}
-              >
-                Sign Typed Data
-              </Button>
-              {isSignTypedError && renderError(signTypedError)}
             </div>
             <div className="mb-4">
               <Button onClick={openUrl}>Open In Explorer</Button>

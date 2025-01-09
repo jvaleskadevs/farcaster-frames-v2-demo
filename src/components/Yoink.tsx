@@ -4,8 +4,6 @@ import sdk from "@farcaster/frame-sdk";
 import {
   useAccount,
   useSendTransaction,
-  useSignMessage,
-  useSignTypedData,
   useWaitForTransactionReceipt,
   useDisconnect,
   useConnect,
@@ -14,16 +12,13 @@ import { useRouter } from 'next/navigation';
 import { encodeFunctionData } from 'viem';
 import { config } from "~/components/WagmiProvider";
 import { Button } from "~/components/ui/Button";
-import { Input } from "~/components/ui/input";
-import { Label } from "~/components/ui/label";
 import { yoinkAbi } from "~/abis/yoinkAbi";
 import { truncateAddress } from "~/lib/truncateAddress";
 
-export default function Onchain() {
+export default function Yoink() {
   const router = useRouter();
   const [isSDKLoaded, setIsSDKLoaded] = useState(false);
   //const [context, setContext] = useState<Context.FrameContext>();
-  const [inputText, setInputText] = useState<string | null>(null);
   const [txHash, setTxHash] = useState<string | null>(null);
 
   const { address, isConnected } = useAccount();
@@ -33,20 +28,6 @@ export default function Onchain() {
     isError: isSendTxError,
     isPending: isSendTxPending,
   } = useSendTransaction();
-
-  const {
-    signMessage,
-    error: signError,
-    isError: isSignError,
-    isPending: isSignPending,
-  } = useSignMessage();
-
-  const {
-    signTypedData,
-    error: signTypedError,
-    isError: isSignTypedError,
-    isPending: isSignTypedPending,
-  } = useSignTypedData();
 
   const { disconnect } = useDisconnect();
   const { connect } = useConnect();
@@ -88,34 +69,9 @@ export default function Onchain() {
       }
     );
   }, [txData, sendTransaction]);
-
-  const sign = useCallback(() => {
-    signMessage({ message: "Hello from Frames v2!" });
-  }, [signMessage]);
-
-  const signTyped = useCallback(() => {
-    signTypedData({
-      domain: {
-        name: "Frames v2 Demo",
-        version: "1",
-        chainId: 8453,
-      },
-      types: {
-        Message: [{ name: "content", type: "string" }],
-      },
-      message: {
-        content: "Hello from Frames v2!",
-      },
-      primaryType: "Message",
-    });
-  }, [signTypedData]);
   
   const backToHome = () => {
     router.push("/");
-  }
-  
-  const onInputChange = (value: string) => {
-    setInputText(value);
   }
   
   const { isLoading: isConfirming, isSuccess: isConfirmed } =
@@ -156,19 +112,6 @@ export default function Onchain() {
             {isConnected ? "Disconnect" : "Connect"}
           </Button>
         </div>
-        
-        <div className="mb-4">
-          <Label>
-            Just write something..
-          </Label>
-          <Input maxLength={32} onChange={(e) => onInputChange(e.target.value)} />
-          {inputText &&
-          <div className="p-2 bg-gray-100 dark:bg-gray-800 rounded-lg my-2">
-            <pre className="font-mono text-xs whitespace-pre-wrap break-words max-w-[260px] overflow-x-">
-              {inputText}
-            </pre>
-          </div>}
-        </div>
 
         {isConnected && (
           <>
@@ -194,26 +137,6 @@ export default function Onchain() {
                   </div>
                 </div>
               )}
-            </div>
-            <div className="mb-4">
-              <Button
-                onClick={sign}
-                disabled={!isConnected || isSignPending}
-                isLoading={isSignPending}
-              >
-                Sign Message
-              </Button>
-              {isSignError && renderError(signError)}
-            </div>
-            <div className="mb-4">
-              <Button
-                onClick={signTyped}
-                disabled={!isConnected || isSignTypedPending}
-                isLoading={isSignTypedPending}
-              >
-                Sign Typed Data
-              </Button>
-              {isSignTypedError && renderError(signTypedError)}
             </div>
             <div className="mb-4">
               <Button onClick={openUrl}>Open In Explorer</Button>
