@@ -15,7 +15,7 @@ export const getFreeWord = () => {
   return publicClient.readContract({
     address: WORDS_ADDRESS,
     abi: wordsAbi,
-    functionName: "freeWord",
+    functionName: "theWord",
   });
 };
 
@@ -23,6 +23,6 @@ export const getGoldenWord = async () => {
   return publicClient.readContract({
     address: WORDS_ADDRESS,
     abi: wordsAbi,
-    functionName: "goldenWord",
+    functionName: "theGoldenWord",
   });
 };

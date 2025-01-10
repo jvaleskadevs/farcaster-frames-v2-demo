@@ -32,8 +32,8 @@ export default function Words() {
 
   return (
     <div className="w-[300px] mx-auto py-4 px-2">
-      <h1 className="text-2xl font-bold text-center mb-4">Words</h1>
-      <h3 className="my-2 font-semibold text-xs text-center">by jvaleska</h3>
+      <h1 className="text-2xl font-bold text-center mb-2">Words</h1>
+      <h3 className="font-semibold text-xs text-center mb-4">by jvaleska</h3>
 
       <div>
         <h2 className="font-2xl font-bold mb-4">Choose a Word</h2>
