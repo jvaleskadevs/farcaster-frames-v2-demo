@@ -162,7 +162,7 @@ export default function Demo() {
         <div className="mb-4">
           <div className="p-2 bg-gray-100 dark:bg-gray-800 rounded-lg my-2">
             <pre className="font-mono text-xs whitespace-pre-wrap break-words max-w-[260px] overflow-x-">
-              sdk.actions.viewProfile({ fid })
+              {`sdk.actions.viewProfile({ fid })`}
             </pre>
           </div>
           <Button onClick={openProfile}>Open Profile</Button>
