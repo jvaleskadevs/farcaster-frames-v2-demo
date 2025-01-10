@@ -10,6 +10,7 @@ import {
 } from "wagmi";
 import { useRouter } from 'next/navigation';
 import { encodeFunctionData, parseEther } from 'viem';
+import { DisplayGoldenWord } from "~/components/DisplayGoldenWord";
 import { config } from "~/components/WagmiProvider";
 import { Button } from "~/components/ui/Button";
 import { Input } from "~/components/ui/input";
@@ -99,8 +100,13 @@ export default function GoldenWord() {
 
   return (
     <div className="w-[300px] mx-auto py-4 px-2">
-      <h1 className="text-2xl font-bold text-center mb-4">Words</h1>
-      <h3 className="my-2 font-semibold text-xs text-center">by jvaleska</h3>
+      <h1 className="text-2xl font-bold text-center mb-2">Words</h1>
+      <h3 className="font-semibold text-xs text-center mb-4">by jvaleska</h3>
+
+      <div>
+        <h2 className="font-2xl font-bold mb-4">Current Golden Word</h2>
+        <DisplayGoldenWord />
+      </div>
 
       <div>
         <h2 className="font-2xl font-bold mb-4">Wallet</h2>
