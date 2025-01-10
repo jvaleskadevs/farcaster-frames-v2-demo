@@ -32,7 +32,7 @@ export default function Demo() {
 
   const { isLoading: isConfirming, isSuccess: isConfirmed } =
     useWaitForTransactionReceipt({
-      hash: txHash as `0x${string}`,
+      hash: txHash as `0x${string}`, // `
     });
 
   const {
@@ -113,6 +113,10 @@ export default function Demo() {
   const backToHome = () => {
     router.push("/");
   }
+  
+  const openProfile = async () => {
+    await sdk.actions.viewProfile({ fid: context?.user?.fid ?? 3 });
+  }
 
   const renderError = (error: Error | null) => {
     if (!error) return null;
@@ -150,6 +154,19 @@ export default function Demo() {
             </pre>
           </div>
         )}
+      </div>
+      
+      <div>
+        <h2 className="font-2xl font-bold">Social</h2>
+
+        <div className="mb-4">
+          <div className="p-2 bg-gray-100 dark:bg-gray-800 rounded-lg my-2">
+            <pre className="font-mono text-xs whitespace-pre-wrap break-words max-w-[260px] overflow-x-">
+              sdk.actions.viewProfile({ fid })
+            </pre>
+          </div>
+          <Button onClick={openProfile}>Open Profile</Button>
+        </div>
       </div>
 
       <div>
