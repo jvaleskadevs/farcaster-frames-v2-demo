@@ -61,6 +61,14 @@ export default function ComponentSelector() {
         </Button>
       </div>  
       
+      <div className="mb-4">
+        <Button
+          onClick={() => router.push("/docs")}
+        >
+          Docs 
+        </Button>
+      </div>
+      
     </div>
   );
 }
