@@ -218,10 +218,19 @@ export default function Demo() {
         <div className="mb-4">
           <div className="p-2 bg-gray-100 dark:bg-gray-800 rounded-lg my-2">
             <pre className="font-mono text-xs whitespace-pre-wrap break-words max-w-[260px] overflow-x-">
-              Set a reminder to be notified once after 1 hour.
+              Set a reminder after 1 hour.
             </pre>
           </div>
           <RemindButton fid={context?.user?.fid} timeLeft={3600} />
+        </div>
+        
+        <div className="mb-4">
+          <div className="p-2 bg-gray-100 dark:bg-gray-800 rounded-lg my-2">
+            <pre className="font-mono text-xs whitespace-pre-wrap break-words max-w-[260px] overflow-x-">
+              Set a daily reminder.
+            </pre>
+          </div>
+          <RemindButton fid={context?.user?.fid} isDaily={true} />
         </div>
       </div>
 

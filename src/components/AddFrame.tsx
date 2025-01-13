@@ -37,6 +37,7 @@ export function AddFrameButton() {
     try {
       setStatus("loading");
       const result = await sdk.actions.addFrame() as EventFrameAdded;
+      console.log(result)
 
       if (result.event === "frame_added") {
         if (result.notificationDetails) {
@@ -89,7 +90,7 @@ export function AddFrameButton() {
         {status === "loading"
           ? "Adding frame..."
           : status === "success" || data?.hasToken
-            ? "Close"
+            ? "Done"
             : "Add Frame"}
       </Button>
 

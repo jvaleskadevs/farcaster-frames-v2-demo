@@ -6,7 +6,7 @@ const client = new Client({
 
 export type QueueMessage = {
   url: string;
-  body: Record<string, unknown>;
+  body: Record<string, unknown> | string;
   messageId: string;
   notBefore?: number;
   retries?: number;
@@ -27,6 +27,24 @@ export async function queueMessage({
     deduplicationId: messageId.replaceAll(":", "_"),
   });
 }
+
+export async function scheduleDailyNotificationProcessing({
+  url,
+  body,
+  messageId,
+  notBefore,
+  retries = 3,
+}: QueueMessage) {
+  return client.schedules.create({
+    destination: `https://farcaster-frames-v2-demo.vercel.app${url}`,
+    body: body as string,
+    cron: "0 0 * * *",
+    ...(notBefore && { notBefore }),
+    retries,
+    scheduleId: messageId.replaceAll(":", "_"),
+  });
+}
+
 /*
 export async function scheduleNotificationProcessing() {
   return client.schedules.create({

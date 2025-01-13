@@ -8,7 +8,7 @@ import { useQueryClient } from "@tanstack/react-query";
 import { toast } from "react-toastify";
 import { Button } from "~/components/ui/Button";
 
-export function RemindButton({ timeLeft, fid }: { timeLeft: number, fid?: number }) {
+export function RemindButton({ timeLeft, isDaily, fid }: { timeLeft?: number, isDaily?: boolean, fid?: number }) {
   const [status, setStatus] = useState<"idle" | "loading">("idle");
   const [hasSetReminder, setHasSetReminder] = useState(false);
 
@@ -19,6 +19,7 @@ export function RemindButton({ timeLeft, fid }: { timeLeft: number, fid?: number
     if (status === "loading") return;
 
     if (hasSetReminder) {
+      setHasSetReminder(false);
       await sdk.actions.close();
       return;
     }
@@ -50,18 +51,30 @@ export function RemindButton({ timeLeft, fid }: { timeLeft: number, fid?: number
         }*/      
       }
       
-      await fetch("/api/notis/schedule-reminder", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          fid: fid,
-          timeLeft,
-        }),
-      });
+      if (isDaily) {
+        await fetch("/api/notis/schedule-daily-reminder", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            fid: fid
+          }),
+        });        
+      } else {
+        await fetch("/api/notis/schedule-reminder", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            fid: fid,
+            timeLeft,
+          }),
+        });      
+      }      
 
-      toast.success(`We'll remind you after ${timeLeft} seconds!`);
+      toast.success("Reminder has been registered!");
       setHasSetReminder(true);
 
       setStatus("idle");
@@ -71,7 +84,7 @@ export function RemindButton({ timeLeft, fid }: { timeLeft: number, fid?: number
       toast.error("Failed to schedule reminder");
       setStatus("idle");
     }
-  }, [timeLeft, status, hasSetReminder, data?.hasToken, queryClient, fid]);
+  }, [timeLeft, status, hasSetReminder, data?.hasToken, queryClient, fid, isDaily]);
 
   return (
     <div className="mt-4 w-full">
@@ -83,7 +96,7 @@ export function RemindButton({ timeLeft, fid }: { timeLeft: number, fid?: number
         {status === "loading"
           ? "Setting reminder..."
           : hasSetReminder
-            ? "Close"
+            ? "Done"
             : "Remind me"}
       </Button>
     </div>
