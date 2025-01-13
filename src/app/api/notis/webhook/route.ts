@@ -114,7 +114,7 @@ export async function POST(request: NextRequest) {
             `Saved notification token for fid ${fid}: ${payload.data.notificationDetails.token}`,
           );
 
-          await fetch("/api/notis/queue-frame-added", {
+          await fetch("https://farcaster-frames-v2-demo.vercel.app/api/notis/queue-frame-added", {
             method: "POST",
             headers: {
               "Content-Type": "application/json",

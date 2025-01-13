@@ -18,7 +18,7 @@ export async function POST(request: NextRequest) {
 
     await queueMessage({
       messageId: reminderId,
-      url: "api/process-reminder",
+      url: "https://farcaster-frames-v2-demo.vercel.app/api/notis/process-reminder",
       body: {
         reminderId,
         fid,
