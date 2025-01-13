@@ -112,26 +112,6 @@ export default function FreeWord() {
       </div>
 
       <div>
-        <h2 className="font-2xl font-bold mb-4">Wallet</h2>
-
-        {address && (
-          <div className="my-2 text-xs">
-            Address: <pre className="inline">{truncateAddress(address)}</pre>
-          </div>
-        )}
-
-        <div className="mb-4">
-          <Button
-            onClick={() =>
-              isConnected
-                ? disconnect()
-                : connect({ connector: config.connectors[0] })
-            }
-          >
-            {isConnected ? "Disconnect" : "Connect"}
-          </Button>
-        </div>
-
         {isConnected && (
           <>
             <div className="mb-4">
@@ -171,10 +151,33 @@ export default function FreeWord() {
               )}
             </div>
             <div className="mb-4">
+              <div className="p-2 bg-gray-100 dark:bg-gray-800 rounded-lg my-2">
+                <pre className="font-mono text-xs whitespace-pre-wrap break-words max-w-[260px] overflow-x-">
+                  { txHash ? "See tx in basescan" : "See contract in basescan" }
+                </pre>
+              </div> 
               <Button onClick={openUrl}>Block Explorer</Button>
             </div>
           </>
         )}
+        
+        {address && (
+          <div className="my-2 text-xs">
+            Address: <pre className="inline">{truncateAddress(address)}</pre>
+          </div>
+        )}
+        
+        <div className="mb-8">
+          <Button
+            onClick={() =>
+              isConnected
+                ? disconnect()
+                : connect({ connector: config.connectors[0] })
+            }
+          >
+            {isConnected ? "Disconnect" : "Connect"}
+          </Button>
+        </div>
       </div>
       
       <div className="mb-8">

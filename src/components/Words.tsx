@@ -36,7 +36,7 @@ export default function Words() {
       <h3 className="font-semibold text-xs text-center mb-4">by jvaleska</h3>
 
       <div>
-        <h2 className="font-2xl font-bold mb-4">Choose a Word</h2>
+        <h2 className="font-2xl font-bold mb-4">Select</h2>
 
         <Button
           onClick={() => router.push("/words/freeword")}
