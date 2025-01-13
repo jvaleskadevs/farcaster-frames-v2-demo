@@ -37,6 +37,10 @@ export default function Docs() {
     sdk.actions.openUrl("https://warpcast.com/~/developers/frames");
   }, []); 
   
+  const openGithub = useCallback(() => {
+    sdk.actions.openUrl("https://github.com/jvaleskadevs/farcaster-frames-v2-demo/blob/main/src/components/Docs.tsx");
+  }, []);
+  
   const backToHome = () => {
     router.push("/");
   }
@@ -71,6 +75,15 @@ export default function Docs() {
         
         <div className="mb-8">
           <Button onClick={openDeveloperTools}>Developer Tools</Button>
+        </div>
+        
+        <div className="mb-8">
+          <div className="p-2 bg-gray-100 dark:bg-gray-800 rounded-lg my-2">
+            <pre className="font-mono text-xs whitespace-pre-wrap break-words max-w-[260px] overflow-x-">
+              Open this component in github
+            </pre>
+          </div>
+          <Button onClick={openGithub}>View Code</Button>
         </div>
         
         <div className="mb-4">

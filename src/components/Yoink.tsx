@@ -54,6 +54,10 @@ export default function Yoink() {
     }
   }, [contractAddress, txHash]);
   
+  const openGithub = useCallback(() => {
+    sdk.actions.openUrl("https://github.com/jvaleskadevs/farcaster-frames-v2-demo/blob/main/src/components/Yoink.tsx");
+  }, []);
+  
   const txData = encodeFunctionData({
     abi: contractAbi,
     functionName: "yoink",
@@ -143,11 +147,20 @@ export default function Yoink() {
                 </div>
               )}
             </div>
-            <div className="mb-8">
+            <div className="mb-4">
               <Button onClick={openUrl}>Block Explorer</Button>
             </div>
           </>
         )}
+      </div>
+
+      <div className="mb-8">
+        <div className="p-2 bg-gray-100 dark:bg-gray-800 rounded-lg my-2">
+          <pre className="font-mono text-xs whitespace-pre-wrap break-words max-w-[260px] overflow-x-">
+            Open this component in github
+          </pre>
+        </div>
+        <Button onClick={openGithub}>View Code</Button>
       </div>
               
       <div className="mb-4">
