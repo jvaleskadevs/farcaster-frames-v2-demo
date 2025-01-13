@@ -167,7 +167,7 @@ export default function GoldenWord() {
                 </div>
               )}
             </div>
-            <div className="mb-4">
+            <div className="mb-8">
               <Button onClick={openUrl}>Block Explorer</Button>
             </div>
           </>

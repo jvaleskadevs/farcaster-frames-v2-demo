@@ -47,7 +47,7 @@ export default function Words() {
         
         <Button
           onClick={() => router.push("/words/goldenword")}
-          className="mb-4"
+          className="mb-8"
         >
           Golden Word
         </Button>

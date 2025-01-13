@@ -89,13 +89,13 @@ export default function Demo() {
   }, [sendTransaction]);
 
   const sign = useCallback(() => {
-    signMessage({ message: "Hello from Frames v2!" });
+    signMessage({ message: "Hello from Farcaster Frames v2 demo!" });
   }, [signMessage]);
 
   const signTyped = useCallback(() => {
     signTypedData({
       domain: {
-        name: "Frames v2 Demo",
+        name: "Farcaster Frames v2 Demo",
         version: "1",
         chainId: 8453,
       },
@@ -103,7 +103,7 @@ export default function Demo() {
         Message: [{ name: "content", type: "string" }],
       },
       message: {
-        content: "Hello from Frames v2!",
+        content: "Hello from Farcaster Frames v2 demo!",
       },
       primaryType: "Message",
     });

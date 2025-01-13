@@ -14,8 +14,6 @@ import { useRouter } from 'next/navigation';
 import { encodeFunctionData } from 'viem';
 import { config } from "~/components/WagmiProvider";
 import { Button } from "~/components/ui/Button";
-import { Input } from "~/components/ui/input";
-import { Label } from "~/components/ui/label";
 import { yoinkAbi } from "~/abis/yoinkAbi";
 import { truncateAddress } from "~/lib/truncateAddress";
 
@@ -23,7 +21,6 @@ export default function Onchain() {
   const router = useRouter();
   const [isSDKLoaded, setIsSDKLoaded] = useState(false);
   //const [context, setContext] = useState<Context.FrameContext>();
-  const [inputText, setInputText] = useState<string | null>(null);
   const [txHash, setTxHash] = useState<string | null>(null);
 
   const { address, isConnected } = useAccount();
@@ -90,13 +87,13 @@ export default function Onchain() {
   }, [txData, sendTransaction]);
 
   const sign = useCallback(() => {
-    signMessage({ message: "Hello from Frames v2!" });
+    signMessage({ message: "Hello from Farcaster Frames v2 demo!" });
   }, [signMessage]);
 
   const signTyped = useCallback(() => {
     signTypedData({
       domain: {
-        name: "Frames v2 Demo",
+        name: "Farcaster Frames v2 Demo",
         version: "1",
         chainId: 8453,
       },
@@ -104,7 +101,7 @@ export default function Onchain() {
         Message: [{ name: "content", type: "string" }],
       },
       message: {
-        content: "Hello from Frames v2!",
+        content: "Hello from Farcaster Frames v2 demo!",
       },
       primaryType: "Message",
     });
@@ -112,10 +109,6 @@ export default function Onchain() {
   
   const backToHome = () => {
     router.push("/");
-  }
-  
-  const onInputChange = (value: string) => {
-    setInputText(value);
   }
   
   const { isLoading: isConfirming, isSuccess: isConfirmed } =
@@ -134,7 +127,7 @@ export default function Onchain() {
 
   return (
     <div className="w-[300px] mx-auto py-4 px-2">
-      <h1 className="text-2xl font-bold text-center mb-4">Onchain Frames v2 Demo</h1>
+      <h1 className="text-2xl font-bold text-center mb-4">Onchain</h1>
 
       <div>
         <h2 className="font-2xl font-bold mb-4">Wallet</h2>
@@ -156,19 +149,6 @@ export default function Onchain() {
             {isConnected ? "Disconnect" : "Connect"}
           </Button>
         </div>
-        
-        <div className="mb-4">
-          <Label>
-            Just write something..
-          </Label>
-          <Input maxLength={32} onChange={(e) => onInputChange(e.target.value)} />
-          {inputText &&
-          <div className="p-2 bg-gray-100 dark:bg-gray-800 rounded-lg my-2">
-            <pre className="font-mono text-xs whitespace-pre-wrap break-words max-w-[260px] overflow-x-">
-              {inputText}
-            </pre>
-          </div>}
-        </div>
 
         {isConnected && (
           <>
@@ -178,7 +158,7 @@ export default function Onchain() {
                 disabled={!isConnected || isSendTxPending}
                 isLoading={isSendTxPending}
               >
-                Send Transaction
+                Yoink
               </Button>
               {isSendTxError && renderError(sendTxError)}
               {txHash && (
@@ -215,7 +195,7 @@ export default function Onchain() {
               </Button>
               {isSignTypedError && renderError(signTypedError)}
             </div>
-            <div className="mb-4">
+            <div className="mb-8">
               <Button onClick={openUrl}>Open In Explorer</Button>
             </div>
           </>

@@ -47,7 +47,8 @@ export default function Docs() {
   
   return (
     <div className="w-[300px] mx-auto py-4 px-2">
-      <h1 className="text-2xl font-bold text-center mb-4">Frames v2 Demo</h1>
+      <h1 className="text-2xl font-bold text-center mb-2">Custom v2 Demo</h1>
+      <h3 className="font-semibold text-xs text-center mb-4">by jvaleska</h3>
       
       <div>
         <h2 className="font-2xl font-bold mb-4">Docs</h2>
