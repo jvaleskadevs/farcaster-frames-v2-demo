@@ -17,10 +17,10 @@ export async function POST(request: NextRequest) {
 
     await scheduleDailyNotificationProcessing({
       url: "/api/notis/process-reminder",
-      body: {
+      body: JSON.stringify({
         reminderId,
-        fid,
-      },
+        fid
+      }),
       messageId: reminderId
     });
 
