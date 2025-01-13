@@ -14,7 +14,7 @@ import { useRouter } from 'next/navigation';
 import { config } from "~/components/WagmiProvider";
 import { Button } from "~/components/ui/Button";
 import { AddFrameButton } from "~/components/AddFrame";
-import { RemoveFrameButton } from "~/components/RemoveFrame";
+//import { RemoveFrameButton } from "~/components/RemoveFrame";
 import { RemindButton } from "~/components/RemindButton";
 import { truncateAddress } from "~/lib/truncateAddress";
 
@@ -182,7 +182,6 @@ export default function Demo() {
             </pre>
           </div>
           <AddFrameButton />
-          <RemoveFrameButton />
         </div>
 
         <div className="mb-4">

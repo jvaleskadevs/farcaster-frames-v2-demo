@@ -1,9 +1,8 @@
 import { NextResponse } from "next/server";
-import { verifySignatureAppRouter } from "@upstash/qstash/nextjs";
 import { queueMessage } from "~/lib/queue";
 import { v4 as uuidv4 } from "uuid";
 
-async function handler(request: Request) {
+export async function POST(request: NextRequest) {
   const body = await request.json();
   const { fid } = body;
 
@@ -33,5 +32,3 @@ async function handler(request: Request) {
     );
   }
 }
-
-export const POST = verifySignatureAppRouter(handler);
