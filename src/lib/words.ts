@@ -11,18 +11,18 @@ export const publicClient = createPublicClient({
   ),
 });
 
-export const getFreeWord = () => {
-  return publicClient.readContract({
+export const getFreeWord = async () => {
+  return await publicClient.readContract({
     address: WORDS_ADDRESS,
     abi: wordsAbi,
     functionName: "theWord",
-  });
+  }) as string;
 };
 
 export const getGoldenWord = async () => {
-  return publicClient.readContract({
+  return await publicClient.readContract({
     address: WORDS_ADDRESS,
     abi: wordsAbi,
     functionName: "theGoldenWord",
-  });
+  }) as string;
 };

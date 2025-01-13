@@ -1,0 +1,18 @@
+{
+  "accountAssociation": {
+    "header": "",
+    "payload": "",
+    "signature": ""
+  },
+  "frame": {
+    "version": "1",
+    "name": "ExtendedDemo",
+    "iconUrl": "https://farcaster-frames-v2-demo.vercel.app/logo.png",
+    "homeUrl": "https://farcaster-frames-v2-demo.vercel.app/",
+    "imageUrl": "https://farcaster-frames-v2-demo.vercel.app/opengraph-image",
+    "buttonTitle": "Open",
+    "splashImageUrl": "https://farcaster-frames-v2-demo.vercel.app/logo.png",
+    "splashBackgroundColor": "#fff",
+    "webhookUrl": "https://farcaster-frames-v2-demo.vercel.app/api/notis/webhook"
+  }
+}
