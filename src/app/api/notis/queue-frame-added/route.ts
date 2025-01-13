@@ -1,4 +1,4 @@
-import { NextResponse } from "next/server";
+import { NextResponse, NextRequest } from "next/server";
 import { queueMessage } from "~/lib/queue";
 import { v4 as uuidv4 } from "uuid";
 
