@@ -15,7 +15,7 @@ export async function POST(request: NextRequest) {
 
     await queueMessage({
       messageId: uuidv4(),
-      url: "https://farcaster-frames-v2-demo.vercel.app/api/notis/process-frame-added",
+      url: "/api/notis/process-frame-added",
       body: {
         fid
       },

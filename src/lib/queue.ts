@@ -20,19 +20,20 @@ export async function queueMessage({
   retries = 3,
 }: QueueMessage) {
   return client.publishJSON({
-    url: `${process.env.APP_URL}${url}`,
+    url: `https://farcaster-frames-v2-demo.vercel.app${url}`,
     body,
     ...(notBefore && { notBefore }),
     retries,
     deduplicationId: messageId.replaceAll(":", "_"),
   });
 }
-
+/*
 export async function scheduleNotificationProcessing() {
   return client.schedules.create({
-    destination: `${process.env.APP_URL}api/notifications/process`,
+    destination: `https://farcaster-frames-v2-demo.vercel.app/api/notis/process`,
     cron: "* * * * *",
     retries: 3,
     scheduleId: "process-notifications",
   });
 }
+*/
