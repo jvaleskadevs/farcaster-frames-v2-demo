@@ -1,12 +1,12 @@
 {
   "accountAssociation": {
-    "header": "",
-    "payload": "",
-    "signature": ""
+    "header": "eyJmaWQiOjE2NjI4LCJ0eXBlIjoiY3VzdG9keSIsImtleSI6IjB4QTYzQjk0Q2JFMjJkMTIyZTVlMjg4NzA2NWRiNzg3QWQ5OTBmNDgyYiJ9",
+    "payload": "eyJkb21haW4iOiJmYXJjYXN0ZXItZnJhbWVzLXYyLWRlbW8udmVyY2VsLmFwcCJ9",
+    "signature": "MHg5NTM0MjQ2YTliNjIwOGRmNGE3MjU1ZWZjYzlkMTliN2IyOWE2YTA1NTFkMTBjNmJiMDgxNGM2OGQ2ZWZmM2VkNjkxNGVlNzQxY2I0OTA3NjZlNzNjNThkZTljNjk5YWE0MzFhZDdlMTJlZjRiMTAzZWNjYmZlOGE3MzA5Mzg1YzFi"
   },
   "frame": {
     "version": "1",
-    "name": "ExtendedDemo",
+    "name": "farcaster-frames-v2-demo",
     "iconUrl": "https://farcaster-frames-v2-demo.vercel.app/logo.png",
     "homeUrl": "https://farcaster-frames-v2-demo.vercel.app/",
     "imageUrl": "https://farcaster-frames-v2-demo.vercel.app/opengraph-image",
