@@ -202,7 +202,7 @@ export default function Onchain() {
             <div className="mb-8">
               <div className="p-2 bg-gray-100 dark:bg-gray-800 rounded-lg my-2">
                 <pre className="font-mono text-xs whitespace-pre-wrap break-words max-w-[260px] overflow-x-">
-                  { txHash ? "See tx in basescan" : "See contract in basescan" }
+                  { txHash ? "See tx in basescan" : "See yoink contract in basescan" }
                 </pre>
               </div> 
               <Button onClick={openUrl}>Block Explorer</Button>

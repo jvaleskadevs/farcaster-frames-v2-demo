@@ -1,5 +1,5 @@
 import { useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import sdk from "@farcaster/frame-sdk";
 import { Button } from "~/components/ui/Button";
 
@@ -18,6 +18,10 @@ export default function ComponentSelector() {
       load();
     }
   }, [isSDKLoaded]);  
+  
+  const openGithub = useCallback(() => {
+    sdk.actions.openUrl("https://github.com/jvaleskadevs/farcaster-frames-v2-demo/blob/main/src/components/ComponentSelector.tsx");
+  }, []); 
   
   if (!isSDKLoaded) {
     return <div>Loading...</div>;
@@ -48,7 +52,7 @@ export default function ComponentSelector() {
         <Button
           onClick={() => router.push("/alarm")}
         >
-          Alarm 
+          Alaaarma! 
         </Button>
       </div> 
       
@@ -82,6 +86,17 @@ export default function ComponentSelector() {
         >
           Tutorials 
         </Button>
+      </div>
+      
+
+
+      <div className="mb-4">
+        <div className="p-2 bg-gray-100 dark:bg-gray-800 rounded-lg my-2">
+          <pre className="font-mono text-xs whitespace-pre-wrap break-words max-w-[260px] overflow-x-">
+            Open this component in github
+          </pre>
+        </div>
+        <Button onClick={openGithub}>View Code</Button>
       </div>
       
     </div>

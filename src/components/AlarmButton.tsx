@@ -44,11 +44,12 @@ export function AlarmButton({ text, timeLeft, isDaily, fid }: { text?: string, t
             });
           }
           
-          queryClient.invalidateQueries({ queryKey: ["notification-token"] }); // (!)
-        }/* else if (result.reason === "rejected_by_user") {
-          toast.error("You dismissed the frame request");
+          queryClient.invalidateQueries({ queryKey: ["notification-token"] });
+        } else {
+          toast.error("Failed to add the frame");
           setStatus("idle");
-        }*/      
+          return;
+        }
       }
       
       if (isDaily) {

@@ -173,7 +173,7 @@ export default function Demo() {
       <h1 className="text-2xl font-bold text-center mb-4">Farcaster Frames v2 Demo</h1>
 
       <div className="mb-4">
-        <h2 className="font-2xl font-bold">Context</h2>
+        <h2 className="font-2xl font-bold mb-2">Context</h2>
         <button
           onClick={toggleContext}
           className="flex items-center gap-2 transition-colors"
@@ -263,6 +263,11 @@ export default function Demo() {
           </div>
         )}   
         <div className="mb-4">
+          <div className="p-2 bg-gray-100 dark:bg-gray-800 rounded-lg my-2">
+            <pre className="font-mono text-xs whitespace-pre-wrap break-words max-w-[260px] overflow-x-">
+              Send a notification instantly.
+            </pre>
+          </div>
           <Button onClick={sendNotification}>
             Send notification
           </Button>

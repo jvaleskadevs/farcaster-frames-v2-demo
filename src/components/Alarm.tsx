@@ -56,7 +56,7 @@ export default function Alarm() {
   
   return (
     <div className="w-[300px] mx-auto py-4 px-2">
-      <h1 className="text-2xl font-bold text-center mb-2">Alarm</h1>
+      <h1 className="text-2xl font-bold text-center mb-2">Alaaarma!</h1>
       <h3 className="font-semibold text-xs text-center mb-4">by jvaleska</h3>
       
       <div className="mb-4">
@@ -80,7 +80,7 @@ export default function Alarm() {
         {inputDate &&
         <div className="p-2 bg-gray-100 dark:bg-gray-800 rounded-lg my-2">
           <pre className="font-mono text-xs whitespace-pre-wrap break-words max-w-[260px] overflow-x-">
-            {inputDate}
+            {`Alarm in ${inputDate} secs`}
           </pre>
         </div>}
       </div> 
