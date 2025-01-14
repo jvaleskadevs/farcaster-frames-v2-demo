@@ -1,5 +1,5 @@
 import { useEffect, useCallback, useState } from "react";
-import sdk from "@farcaster/frame-sdk";
+import sdk, { FrameNotificationDetails } from "@farcaster/frame-sdk";
 import { Context } from '@farcaster/frame-core';
 import {
   useAccount,
@@ -9,7 +9,10 @@ import {
   useWaitForTransactionReceipt,
   useDisconnect,
   useConnect,
+  useSwitchChain,
+  useChainId
 } from "wagmi";
+import { base, optimism } from "wagmi/chains";
 import { useRouter } from 'next/navigation';
 import { config } from "~/components/WagmiProvider";
 import { Button } from "~/components/ui/Button";
@@ -25,10 +28,19 @@ export default function Demo() {
   const [context, setContext] = useState<Context.FrameContext>();
   const [isContextOpen, setIsContextOpen] = useState(false);
   const [txHash, setTxHash] = useState<string | null>(null);
-  //const [lastEvent, setLastEvent] = useState("");
+  const [frameAdded, setFrameAdded] = useState(false);
+  const [notificationDetails, setNotificationDetails] =
+    useState<FrameNotificationDetails | null>(null);
+  const [lastEvent, setLastEvent] = useState("");
   const [sendNotificationResult, setSendNotificationResult] = useState("");
 
+  useEffect(() => {
+    setNotificationDetails(context?.client.notificationDetails ?? null);
+  }, [context]);
+
   const { address, isConnected } = useAccount();
+  const chainId = useChainId();
+  
   const {
     sendTransaction,
     error: sendTxError,
@@ -54,18 +66,63 @@ export default function Demo() {
     isError: isSignTypedError,
     isPending: isSignTypedPending,
   } = useSignTypedData();
+  
+  const {
+    switchChain,
+    error: switchChainError,
+    isError: isSwitchChainError,
+    isPending: isSwitchChainPending,
+  } = useSwitchChain();
 
   const { disconnect } = useDisconnect();
-  const { connect } = useConnect();
+  const { connect } = useConnect();  
 
   useEffect(() => {
     const load = async () => {
       setContext(await sdk.context);
+      
+      sdk.on("frameAdded", ({ notificationDetails }) => {
+        setLastEvent(
+          `frameAdded${!!notificationDetails ? ", notifications enabled" : ""}`
+        );
+
+        setFrameAdded(true);
+        if (notificationDetails) {
+          setNotificationDetails(notificationDetails);
+        }
+      });
+
+      sdk.on("frameAddRejected", ({ reason }) => {
+        setLastEvent(`frameAddRejected, reason ${reason}`);
+      });
+
+      sdk.on("frameRemoved", () => {
+        setLastEvent("frameRemoved");
+        setFrameAdded(false);
+        setNotificationDetails(null);
+      });
+
+      sdk.on("notificationsEnabled", ({ notificationDetails }) => {
+        setLastEvent("notificationsEnabled");
+        setNotificationDetails(notificationDetails);
+      });
+      sdk.on("notificationsDisabled", () => {
+        setLastEvent("notificationsDisabled");
+        setNotificationDetails(null);
+      });
+
+      sdk.on("primaryButtonClicked", () => {
+        console.log("primaryButtonClicked");
+      });
+      
       sdk.actions.ready();
     };
     if (sdk && !isSDKLoaded) {
       setIsSDKLoaded(true);
       load();
+      return () => {
+        sdk.removeAllListeners();
+      };
     }
   }, [isSDKLoaded]);
 
@@ -146,6 +203,10 @@ export default function Demo() {
         setSendNotificationResult(`Error: ${error}`);
       }
     }, [context]);
+    
+  const handleSwitchChain = useCallback(() => {
+    switchChain({ chainId: chainId === base.id ? optimism.id : base.id });
+  }, [switchChain, chainId]);
 
   const toggleContext = useCallback(() => {
     setIsContextOpen((prev) => !prev);
@@ -223,6 +284,9 @@ export default function Demo() {
               sdk.actions.addFrame
             </pre>
           </div>
+          <div className="mb-2 text-sm">
+            Frame added: {frameAdded}
+          </div>
           <AddFrameButton />
         </div>
 
@@ -254,8 +318,25 @@ export default function Demo() {
         </div>
       </div>
       
+      <div className="mb-4">
+        <h2 className="font-2xl font-bold">Last event</h2>
+
+        <div className="p-4 mt-2 bg-gray-100 dark:bg-gray-800 rounded-lg">
+          <pre className="font-mono text-xs whitespace-pre-wrap break-words max-w-[260px] overflow-x-">
+            {lastEvent || "none"}
+          </pre>
+        </div>
+      </div>
+      
       <div>
         <h2 className="font-2xl font-bold">Notifications</h2>
+
+        <div className="mt-2 mb-4 text-sm">
+          {frameAdded ? "Frame added," : "Frame not added,"}
+          {notificationDetails
+            ? " notifications enabled"
+            : " notifications disabled"}
+        </div>
 
         {sendNotificationResult && (
           <div className="mb-2 text-sm">
@@ -298,6 +379,12 @@ export default function Demo() {
         {address && (
           <div className="my-2 text-xs">
             Address: <pre className="inline">{truncateAddress(address)}</pre>
+          </div>
+        )}
+        
+        {chainId && (
+          <div className="my-2 text-xs">
+            Chain ID: <pre className="inline">{chainId}</pre>
           </div>
         )}
 
@@ -357,6 +444,16 @@ export default function Demo() {
                 Sign Typed Data
               </Button>
               {isSignTypedError && renderError(signTypedError)}
+            </div>
+            <div className="mb-4">
+              <Button
+                onClick={handleSwitchChain}
+                disabled={!isConnected || isSwitchChainPending}
+                isLoading={isSwitchChainPending}
+              >
+                Switch to {chainId === base.id ? "Optimism" : "Base"}
+              </Button>
+              {isSwitchChainError && renderError(switchChainError)}
             </div>
           </>
         )}

@@ -9,7 +9,10 @@ import {
   useWaitForTransactionReceipt,
   useDisconnect,
   useConnect,
+  useSwitchChain,
+  useChainId
 } from "wagmi";
+import { base, optimism } from "wagmi/chains";
 import { useRouter } from 'next/navigation';
 import { encodeFunctionData } from 'viem';
 import { config } from "~/components/WagmiProvider";
@@ -24,6 +27,8 @@ export default function Onchain() {
   const [txHash, setTxHash] = useState<string | null>(null);
 
   const { address, isConnected } = useAccount();
+  const chainId = useChainId();
+  
   const {
     sendTransaction,
     error: sendTxError,
@@ -44,6 +49,13 @@ export default function Onchain() {
     isError: isSignTypedError,
     isPending: isSignTypedPending,
   } = useSignTypedData();
+  
+  const {
+    switchChain,
+    error: switchChainError,
+    isError: isSwitchChainError,
+    isPending: isSwitchChainPending,
+  } = useSwitchChain();
 
   const { disconnect } = useDisconnect();
   const { connect } = useConnect();
@@ -111,6 +123,10 @@ export default function Onchain() {
     });
   }, [signTypedData]);
   
+  const handleSwitchChain = useCallback(() => {
+    switchChain({ chainId: chainId === base.id ? optimism.id : base.id });
+  }, [switchChain, chainId]);
+  
   const backToHome = () => {
     router.push("/");
   }
@@ -139,6 +155,12 @@ export default function Onchain() {
         {address && (
           <div className="my-2 text-xs">
             Address: <pre className="inline">{truncateAddress(address)}</pre>
+          </div>
+        )}
+        
+        {chainId && (
+          <div className="my-2 text-xs">
+            Chain ID: <pre className="inline">{chainId}</pre>
           </div>
         )}
 
@@ -198,6 +220,16 @@ export default function Onchain() {
                 Sign Typed Data
               </Button>
               {isSignTypedError && renderError(signTypedError)}
+            </div>
+            <div className="mb-4">
+              <Button
+                onClick={handleSwitchChain}
+                disabled={!isConnected || isSwitchChainPending}
+                isLoading={isSwitchChainPending}
+              >
+                Switch to {chainId === base.id ? "Optimism" : "Base"}
+              </Button>
+              {isSwitchChainError && renderError(switchChainError)}
             </div>
             <div className="mb-8">
               <div className="p-2 bg-gray-100 dark:bg-gray-800 rounded-lg my-2">
