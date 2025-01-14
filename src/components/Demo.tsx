@@ -16,6 +16,7 @@ import { Button } from "~/components/ui/Button";
 import { AddFrameButton } from "~/components/AddFrame";
 //import { RemoveFrameButton } from "~/components/RemoveFrame";
 import { RemindButton } from "~/components/RemindButton";
+import { ViewProfile } from "~/components/ViewProfile";
 import { truncateAddress } from "~/lib/truncateAddress";
 
 export default function Demo() {
@@ -172,8 +173,12 @@ export default function Demo() {
               {`sdk.actions.viewProfile({ fid })`}
             </pre>
           </div>
-          <Button onClick={openProfile}>Open Profile</Button>
+          <Button onClick={openProfile}>View Your Profile</Button>
         </div>
+        
+        <div className="mb-4">
+          <ViewProfile />
+        </div>        
       </div>
 
       <div>

@@ -43,7 +43,7 @@ export default function Alarm() {
   
   const formatDate = (date: string | number | Date): number | undefined => {
     try {
-      return (Math.floor(new Date(date).getTime() - Date.now() / 1000));
+      return (Math.floor(new Date(date).getTime() - Date.now()) / 1000);
     } catch (err) {
       console.log(err);
       return undefined;
@@ -74,9 +74,9 @@ export default function Alarm() {
       
       <div className="mb-4">
         <Label>
-          Select date
+          Select when to be notified
         </Label>
-        <Input type="datetime-local" min={Date.now()} onChange={(e) => onInputDateChange(e.target.value)} className="bg-white" />
+        <Input type="datetime-local" min={Date.now()} onChange={(e) => onInputDateChange(e.target.value)} className="dark:bg-white" />
         {inputDate &&
         <div className="p-2 bg-gray-100 dark:bg-gray-800 rounded-lg my-2">
           <pre className="font-mono text-xs whitespace-pre-wrap break-words max-w-[260px] overflow-x-">
