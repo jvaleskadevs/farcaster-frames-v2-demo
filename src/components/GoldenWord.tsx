@@ -108,7 +108,7 @@ export default function GoldenWord() {
       <h3 className="font-semibold text-xs text-center mb-4">by jvaleska</h3>
 
       <div>
-        <h2 className="font-2xl font-bold mb-4">Current Golden Word</h2>
+        <h2 className="text-md font-bold mb-4">Current Golden Word</h2>
         <DisplayGoldenWord />
       </div>
 
@@ -128,7 +128,7 @@ export default function GoldenWord() {
               </div>}
             </div>
           
-            <div className="mb-4">
+            <div className="mb-8">
               <Button
                 onClick={sendTx}
                 disabled={!isConnected || isSendTxPending}
@@ -168,7 +168,7 @@ export default function GoldenWord() {
           </div>
         )}
         
-        <div className="mb-8">
+        <div className="mb-4">
           <Button
             onClick={() =>
               isConnected

@@ -47,6 +47,14 @@ export default function ComponentSelector() {
       
       <div className="mb-4">
         <Button
+          onClick={() => router.push("/alarm")}
+        >
+          Alarm 
+        </Button>
+      </div> 
+      
+      <div className="mb-4">
+        <Button
           onClick={() => router.push("/words")}
         >
           Words 
@@ -66,6 +74,14 @@ export default function ComponentSelector() {
           onClick={() => router.push("/docs")}
         >
           Docs 
+        </Button>
+      </div>
+      
+      <div className="mb-4">
+        <Button
+          onClick={() => router.push("/tutorials")}
+        >
+          Tutorials 
         </Button>
       </div>
       

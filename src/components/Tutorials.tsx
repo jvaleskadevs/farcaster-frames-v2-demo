@@ -17,28 +17,16 @@ export default function Docs() {
     }
   }, [isSDKLoaded]);
 
-  const openIntroduction = useCallback(() => {
-    sdk.actions.openUrl("https://docs.farcaster.xyz/developers/frames/v2/");
-  }, []);
-  
-  const openGettingStarted = useCallback(() => {
+  const openFramesV2Demo = useCallback(() => {
     sdk.actions.openUrl("https://docs.farcaster.xyz/developers/frames/v2/getting-started");
-  }, []); 
-  
-  const openSpecification = useCallback(() => {
-    sdk.actions.openUrl("https://docs.farcaster.xyz/developers/frames/v2/spec");
-  }, []); 
-  
-  const openResources = useCallback(() => {
-    sdk.actions.openUrl("https://docs.farcaster.xyz/developers/frames/v2/resources");
   }, []);
   
-  const openDeveloperTools = useCallback(() => {
-    sdk.actions.openUrl("https://warpcast.com/~/developers/frames");
+  const openNotifications = useCallback(() => {
+    sdk.actions.openUrl("https://docs.farcaster.xyz/developers/frames/v2/notifications_webhooks");
   }, []); 
   
   const openGithub = useCallback(() => {
-    sdk.actions.openUrl("https://github.com/jvaleskadevs/farcaster-frames-v2-demo/blob/main/src/components/Docs.tsx");
+    sdk.actions.openUrl("https://github.com/jvaleskadevs/farcaster-frames-v2-demo/blob/main/src/components/Tutorials.tsx");
   }, []);
   
   const backToHome = () => {
@@ -51,30 +39,18 @@ export default function Docs() {
   
   return (
     <div className="w-[300px] mx-auto py-4 px-2">
-      <h1 className="text-2xl font-bold text-center mb-2">Farcastes Frames v2 Demo</h1>
+      <h1 className="text-2xl font-bold text-center mb-2">Farcaster Frames v2 Demo</h1>
       <h3 className="font-semibold text-xs text-center mb-4">by jvaleska</h3>
       
       <div>
-        <h2 className="font-2xl font-bold mb-4">Docs</h2>
+        <h2 className="font-2xl font-bold mb-4">Tutorials</h2>
 
         <div className="mb-4">
-          <Button onClick={openIntroduction}>Introduction</Button>
-        </div>
-        
-        <div className="mb-4">
-          <Button onClick={openGettingStarted}>Getting Started</Button>
-        </div>
-        
-        <div className="mb-4">
-          <Button onClick={openSpecification}>Specification</Button>
-        </div>
-        
-        <div className="mb-4">
-          <Button onClick={openResources}>Resources</Button>
+          <Button onClick={openFramesV2Demo}>Frames v2 Demo</Button>
         </div>
         
         <div className="mb-8">
-          <Button onClick={openDeveloperTools}>Developer Tools</Button>
+          <Button onClick={openNotifications}>Notifications</Button>
         </div>
         
         <div className="mb-8">

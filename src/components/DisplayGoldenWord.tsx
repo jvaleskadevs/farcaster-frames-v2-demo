@@ -6,7 +6,7 @@ export function DisplayGoldenWord() {
   const { data: goldenWord } = useGoldenWord();
 
   return (
-    <div className="text-md text-center text-[#DAA520]">
+    <div className="text-lg text-center text-[#DAA520] mb-4">
       {goldenWord.goldenWord}
     </div>
   );

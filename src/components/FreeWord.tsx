@@ -107,7 +107,7 @@ export default function FreeWord() {
       <h3 className="font-semibold text-xs text-center mb-4">by jvaleska</h3>
 
       <div>
-        <h2 className="font-2xl font-bold mb-4">Current Free Word</h2>
+        <h2 className="text-md font-bold mb-2">Current Free Word</h2>
         <DisplayFreeWord />
       </div>
 
@@ -127,7 +127,7 @@ export default function FreeWord() {
               </div>}
             </div>
           
-            <div className="mb-4">
+            <div className="mb-8">
               <Button
                 onClick={sendTx}
                 disabled={!isConnected || isSendTxPending}
