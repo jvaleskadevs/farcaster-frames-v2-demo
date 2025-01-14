@@ -92,6 +92,24 @@ export default function GoldenWord() {
     useWaitForTransactionReceipt({
       hash: txHash as `0x${string}`, //`
   });
+  
+  useEffect(() => {
+    const notifyNewWord = async () => {
+      const fid = (await sdk.context)?.user?.fid;
+      if (!fid || !inputText) return;
+      await fetch("/api/notis/new-word", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          fid,
+          word: inputText
+        }),
+      });
+    }
+    notifyNewWord();
+  }, [isConfirmed, inputText]);
 
   const renderError = (error: Error | null) => {
     if (!error) return null;

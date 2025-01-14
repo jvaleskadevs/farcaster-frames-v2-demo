@@ -1,9 +1,7 @@
-import { NextResponse } from "next/server";
+import { NextResponse, NextRequest } from "next/server";
 import { getNotificationTokenForFid } from "~/lib/database";
-import { verifySignatureAppRouter } from "@upstash/qstash/nextjs";
-//import { v4 as uuidv4 } from "uuid";
 
-async function handler(request: Request) {
+export async function POST(request: NextRequest) {
   const body = await request.json();
   const { word, fid } = body;
 
@@ -22,7 +20,7 @@ async function handler(request: Request) {
     }
 
     const body = {
-      notificationId: word,
+      notificationId: `${fid}:${word}`,
       title: "You've added a new word!",
       body: `Congrats! The word '${word}' has been added!`,
       targetUrl: "https://farcaster-frames-v2-demo.vercel.app/",
@@ -57,5 +55,3 @@ async function handler(request: Request) {
     );
   }
 }
-
-export const POST = verifySignatureAppRouter(handler);
