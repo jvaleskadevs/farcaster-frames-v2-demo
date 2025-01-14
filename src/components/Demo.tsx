@@ -25,6 +25,8 @@ export default function Demo() {
   const [context, setContext] = useState<Context.FrameContext>();
   const [isContextOpen, setIsContextOpen] = useState(false);
   const [txHash, setTxHash] = useState<string | null>(null);
+  //const [lastEvent, setLastEvent] = useState("");
+  const [sendNotificationResult, setSendNotificationResult] = useState("");
 
   const { address, isConnected } = useAccount();
   const {
@@ -113,6 +115,37 @@ export default function Demo() {
       primaryType: "Message",
     });
   }, [signTypedData]);
+  
+  const sendNotification = useCallback(async () => {
+      setSendNotificationResult("");
+      if (!context?.user?.fid) {
+        return;
+      }
+
+      try {
+        const response = await fetch("/api/notis/send-notification", {
+          method: "POST",
+          mode: "same-origin",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            fid: context.user.fid
+          }),
+        });
+
+        if (response.status === 200) {
+          setSendNotificationResult("Success");
+          return;
+        } else if (response.status === 429) {
+          setSendNotificationResult("Rate limited");
+          return;
+        }
+
+        const data = await response.text();
+        setSendNotificationResult(`Error: ${data}`);
+      } catch (error) {
+        setSendNotificationResult(`Error: ${error}`);
+      }
+    }, [context]);
 
   const toggleContext = useCallback(() => {
     setIsContextOpen((prev) => !prev);
@@ -137,7 +170,7 @@ export default function Demo() {
 
   return (
     <div className="w-[300px] mx-auto py-4 px-2">
-      <h1 className="text-2xl font-bold text-center mb-4">Frames v2 Demo</h1>
+      <h1 className="text-2xl font-bold text-center mb-4">Farcaster Frames v2 Demo</h1>
 
       <div className="mb-4">
         <h2 className="font-2xl font-bold">Context</h2>
@@ -223,6 +256,17 @@ export default function Demo() {
       
       <div>
         <h2 className="font-2xl font-bold">Notifications</h2>
+
+        {sendNotificationResult && (
+          <div className="mb-2 text-sm">
+            Send notification result: {sendNotificationResult}
+          </div>
+        )}   
+        <div className="mb-4">
+          <Button onClick={sendNotification}>
+            Send notification
+          </Button>
+        </div>
 
         <div className="mb-4">
           <div className="p-2 bg-gray-100 dark:bg-gray-800 rounded-lg my-2">
