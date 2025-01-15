@@ -181,7 +181,7 @@ export default function Onchain() {
             <div className="mb-4">
               <Button
                 onClick={sendTx}
-                disabled={!isConnected || isSendTxPending}
+                disabled={!isConnected || isSendTxPending || chainId !== base.id}
                 isLoading={isSendTxPending}
               >
                 Yoink

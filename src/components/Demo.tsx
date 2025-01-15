@@ -36,6 +36,7 @@ export default function Demo() {
 
   useEffect(() => {
     setNotificationDetails(context?.client.notificationDetails ?? null);
+    setFrameAdded(context?.client.added ?? false);
   }, [context]);
 
   const { address, isConnected } = useAccount();
@@ -285,7 +286,7 @@ export default function Demo() {
             </pre>
           </div>
           <div className="mb-2 text-sm">
-            Frame added: {frameAdded}
+            Frame added: {frameAdded?.toString()}
           </div>
           <AddFrameButton />
         </div>
@@ -323,7 +324,7 @@ export default function Demo() {
 
         <div className="p-4 mt-2 bg-gray-100 dark:bg-gray-800 rounded-lg">
           <pre className="font-mono text-xs whitespace-pre-wrap break-words max-w-[260px] overflow-x-">
-            {lastEvent || "none"}
+            {lastEvent || "No event found"}
           </pre>
         </div>
       </div>
@@ -349,7 +350,7 @@ export default function Demo() {
               Send a notification instantly.
             </pre>
           </div>
-          <Button onClick={sendNotification}>
+          <Button onClick={sendNotification} disabled={!frameAdded}>
             Send notification
           </Button>
         </div>
@@ -376,17 +377,19 @@ export default function Demo() {
       <div>
         <h2 className="font-2xl font-bold">Wallet</h2>
 
-        {address && (
-          <div className="my-2 text-xs">
-            Address: <pre className="inline">{truncateAddress(address)}</pre>
-          </div>
-        )}
-        
-        {chainId && (
-          <div className="my-2 text-xs">
-            Chain ID: <pre className="inline">{chainId}</pre>
-          </div>
-        )}
+        <div className="flex flex-row flex-between w-full">
+          {address && (
+            <div className="my-2 text-xs">
+              Address: <pre className="inline">{truncateAddress(address)}</pre>
+            </div>
+          )}
+          
+          {chainId && (
+            <div className="my-2 text-xs">
+              Chain ID: <pre className="inline">{chainId}</pre>
+            </div>
+          )}
+        </div>
 
         <div className="mb-4">
           <Button

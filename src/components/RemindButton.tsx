@@ -87,7 +87,7 @@ export function RemindButton({ timeLeft, isDaily, fid }: { timeLeft?: number, is
   }, [timeLeft, status, hasSetReminder, data?.hasToken, queryClient, fid, isDaily]);
 
   return (
-    <div className="mt-4 w-full">
+    <div className="w-full">
       <Button
         onClick={handleRemind}
         disabled={status === "loading" || !fid}
