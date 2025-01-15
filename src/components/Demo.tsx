@@ -377,7 +377,7 @@ export default function Demo() {
       <div>
         <h2 className="font-2xl font-bold">Wallet</h2>
 
-        <div className="flex flex-row flex-between w-full">
+        <div className="flex flex-row space-between w-full">
           {address && (
             <div className="my-2 text-xs">
               Address: <pre className="inline">{truncateAddress(address)}</pre>
@@ -408,7 +408,7 @@ export default function Demo() {
             <div className="mb-4">
               <Button
                 onClick={sendTx}
-                disabled={!isConnected || isSendTxPending}
+                disabled={!isConnected || isSendTxPending || chainId !== base.id}
                 isLoading={isSendTxPending}
               >
                 Send Transaction
@@ -448,7 +448,7 @@ export default function Demo() {
               </Button>
               {isSignTypedError && renderError(signTypedError)}
             </div>
-            <div className="mb-4">
+            <div className="mb-8">
               <Button
                 onClick={handleSwitchChain}
                 disabled={!isConnected || isSwitchChainPending}

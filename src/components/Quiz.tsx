@@ -118,7 +118,7 @@ export default function Quiz() {
         <p className="text-lg">{question.question}</p>
         
         {question.code && (
-          <pre className="bg-gray-800 p-4 rounded-lg font-mono text-xs whitespace-pre-wrap break-words max-w-[260px] overflow-x-">
+          <pre className="bg-gray-800 p-4 rounded-lg font-mono text-xs whitespace-pre-wrap break-words overflow-x-">
             <code>{question.code}</code>
           </pre>
         )}

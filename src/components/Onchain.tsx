@@ -152,17 +152,19 @@ export default function Onchain() {
       <div>
         <h2 className="font-2xl font-bold mb-4">Wallet</h2>
 
-        {address && (
-          <div className="my-2 text-xs">
-            Address: <pre className="inline">{truncateAddress(address)}</pre>
-          </div>
-        )}
-        
-        {chainId && (
-          <div className="my-2 text-xs">
-            Chain ID: <pre className="inline">{chainId}</pre>
-          </div>
-        )}
+        <div className="flex flex-row space-between w-full">
+          {address && (
+            <div className="my-2 text-xs">
+              Address: <pre className="inline">{truncateAddress(address)}</pre>
+            </div>
+          )}
+          
+          {chainId && (
+            <div className="my-2 text-xs">
+              Chain ID: <pre className="inline">{chainId}</pre>
+            </div>
+          )}
+        </div>
 
         <div className="mb-8">
           <Button

@@ -9,10 +9,10 @@
     "name": "farcaster-frames-v2-demo",
     "iconUrl": "https://farcaster-frames-v2-demo.vercel.app/logo.png",
     "homeUrl": "https://farcaster-frames-v2-demo.vercel.app/",
-    "imageUrl": "https://farcaster-frames-v2-demo.vercel.app/opengraph-image",
-    "buttonTitle": "Open",
+    "imageUrl": "https://farcaster-frames-v2-demo.vercel.app/logo.png",
+    "buttonTitle": "Learn",
     "splashImageUrl": "https://farcaster-frames-v2-demo.vercel.app/logo.png",
-    "splashBackgroundColor": "#fff",
+    "splashBackgroundColor": "#000",
     "webhookUrl": "https://farcaster-frames-v2-demo.vercel.app/api/notis/webhook"
   }
 }
