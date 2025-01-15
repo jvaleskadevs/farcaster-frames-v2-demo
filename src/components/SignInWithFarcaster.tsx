@@ -1,3 +1,5 @@
+"use client"
+
 import { useCallback, useState } from "react";
 import { signIn, signOut, getCsrfToken, useSession } from "next-auth/react";
 import { SignIn } from "@farcaster/frame-sdk";
@@ -8,7 +10,7 @@ export function SIWF({ siwf }: { siwf: (nonce: string) => Promise<SignIn.SignInR
   const [signingOut, setSigningOut] = useState(false);
   const [signInResult, setSignInResult] = useState<SignIn.SignInResult>();
   const [signInFailure, setSignInFailure] = useState<string>();
-  const { data: session, status } = useSession()
+  const { data: session, status } = useSession();
 
   const getNonce = useCallback(async () => {
     const nonce = await getCsrfToken();
