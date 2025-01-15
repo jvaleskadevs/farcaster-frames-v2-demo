@@ -377,7 +377,7 @@ export default function Demo() {
       <div>
         <h2 className="font-2xl font-bold">Wallet</h2>
 
-        <div className="flex flex-row space-between w-full">
+        <div className="flex flex-row justify-between w-full">
           {address && (
             <div className="my-2 text-xs">
               Address: <pre className="inline">{truncateAddress(address)}</pre>

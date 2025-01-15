@@ -54,6 +54,42 @@ const questions: Question[] = [
   },  
   {
     id: 4,
+    question: "Which onchain actions can be performed with v2 frames?",
+    options: [
+      "Send transactions.",
+      "Sign typed data.",
+      "Sign messages.",
+      "All of them."
+    ],
+    correctAnswer: 3,
+    explanation: "Frames v2 can sign messages, typed data and transactions like any other eth wallet."
+  }, 
+  {
+    id: 5,
+    question: "how is the right way to set up an event listener?",
+    options: [
+      "sdk.actions.setEventListener()",
+      "sdk.eventListeners.new()",
+      "sdk.on()",
+      "setEventListener()"
+    ],
+    correctAnswer: 2,
+    explanation: "Farcaster frames are not enough interesting content."
+  },  
+  {
+    id: 6,
+    question: "Which is not a feature to be improved with v2 frames?",
+    options: [
+      "Interactivity.",
+      "User Retention.",
+      "Connectivity.",
+      "Interesting content."
+    ],
+    correctAnswer: 3,
+    explanation: "Farcaster frames are not enough interesting content."
+  },   
+  {
+    id: 7,
     question: "What is a farcaster frame v2?",
     options: [
       "Just a normal webapp.",
