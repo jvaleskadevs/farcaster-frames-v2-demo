@@ -97,7 +97,7 @@ const questions: Question[] = [
       "Channel, cast and notification.",
       "None of them is right."
     ],
-    correctAnswer: 2,
+    correctAnswer: 1,
     explanation: "A frame can be launched from the launcher, a notification, a channel or from cast."
   }, 
   {

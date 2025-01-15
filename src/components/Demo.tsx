@@ -1,5 +1,5 @@
 import { useEffect, useCallback, useState } from "react";
-import sdk, { FrameNotificationDetails } from "@farcaster/frame-sdk";
+import sdk, { FrameNotificationDetails, SignIn } from "@farcaster/frame-sdk";
 import { Context } from '@farcaster/frame-core';
 import {
   useAccount,
@@ -20,6 +20,7 @@ import { AddFrameButton } from "~/components/AddFrame";
 //import { RemoveFrameButton } from "~/components/RemoveFrame";
 import { RemindButton } from "~/components/RemindButton";
 import { ViewProfile } from "~/components/ViewProfile";
+import { SIWF } from "~/components/SignInWithFarcaster";
 import { truncateAddress } from "~/lib/truncateAddress";
 
 export default function Demo() {
@@ -131,6 +132,10 @@ export default function Demo() {
     sdk.actions.openUrl("https://www.youtube.com/watch?v=dQw4w9WgXcQ");
   }, []);
   
+  const openWarpcastUrl = useCallback(() => {
+    sdk.actions.openUrl("https://warpcast.com/~/compose");
+  }, []);
+  
   const openGithub = useCallback(() => {
     sdk.actions.openUrl("https://github.com/jvaleskadevs/farcaster-frames-v2-demo/blob/main/src/components/Demo.tsx");
   }, []);
@@ -208,6 +213,10 @@ export default function Demo() {
   const handleSwitchChain = useCallback(() => {
     switchChain({ chainId: chainId === base.id ? optimism.id : base.id });
   }, [switchChain, chainId]);
+  
+  const siwf = async (nonce: string): Promise<SignIn.SignInResult> => {
+    return await sdk.actions.signIn({ nonce });
+  }
 
   const toggleContext = useCallback(() => {
     setIsContextOpen((prev) => !prev);
@@ -301,6 +310,15 @@ export default function Demo() {
         </div>
         
         <div className="mb-4">
+          <div className="p-2 bg-gray-100 dark:bg-gray-800 rounded-lg my-2">
+            <pre className="font-mono text-xs whitespace-pre-wrap break-words max-w-[260px] overflow-x-">
+              sdk.actions.openUrl
+            </pre>
+          </div>
+          <Button onClick={openWarpcastUrl}>Open Warpcast Link</Button>
+        </div>
+        
+        <div className="mb-4">
          <div className="p-2 bg-gray-100 dark:bg-gray-800 rounded-lg my-2">
             <pre className="font-mono text-xs whitespace-pre-wrap break-words max-w-[260px] overflow-x-">
               router.push(&quot;/&quot;)
@@ -317,6 +335,11 @@ export default function Demo() {
           </div>
           <Button onClick={close}>Close Frame</Button>
         </div>
+      </div>
+      
+      <div>
+        <h2 className="font-2xl font-bold">Auth</h2>
+        <SIWF siwf={siwf} />
       </div>
       
       <div className="mb-4">
