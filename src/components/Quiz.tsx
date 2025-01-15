@@ -17,6 +17,18 @@ type Question = {
 const questions: Question[] = [
   {
     id: 1,
+    question: "Which action should be performed first in a v2 frame?",
+    options: [
+      "sdk.actions.addFrame()",
+      "sdk.actions.start()",
+      "sdk.actions.ready()",
+      "sdk.actions.go()"
+    ],
+    correctAnswer: 2,
+    explanation: "The sdk.actions.ready() function must be the first call after rendering the frame. It signals that the frame is loaded and ready."
+  },
+  {
+    id: 2,
     question: "What will be the output of this code?",
     code: `await sdk.actions.viewProfile({ fid: context?.user?.fid ?? 3 });`,
     options: [
@@ -27,18 +39,6 @@ const questions: Question[] = [
     ],
     correctAnswer: 3,
     explanation: "The viewProfile action from the sdk opens the profile of the selected fid. In this case, the connected user or dwr profiles."
-  },
-  {
-    id: 2,
-    question: "Which action should be performed first in a v2 frame?",
-    options: [
-      "sdk.actions.addFrame()",
-      "sdk.actions.start()",
-      "sdk.actions.ready()",
-      "sdk.actions.go()"
-    ],
-    correctAnswer: 2,
-    explanation: "sdk.actions.ready() should be called first to load the frame."
   },
   {
     id: 3,
@@ -54,7 +54,7 @@ const questions: Question[] = [
   },  
   {
     id: 4,
-    question: "Which onchain actions can be performed with v2 frames?",
+    question: "Which onchain action can be performed with frames v2?",
     options: [
       "Send transactions.",
       "Sign typed data.",
@@ -62,23 +62,59 @@ const questions: Question[] = [
       "All of them."
     ],
     correctAnswer: 3,
-    explanation: "Frames v2 can sign messages, typed data and transactions like any other eth wallet."
+    explanation: "Frames v2 can ask to sign messages, typed data and transactions from your eth wallet."
   }, 
   {
     id: 5,
-    question: "how is the right way to set up an event listener?",
+    question: "How to set up an event listener with frames v2?",
     options: [
       "sdk.actions.setEventListener()",
       "sdk.eventListeners.new()",
       "sdk.on()",
-      "setEventListener()"
+      "sdk.setEventListener()"
     ],
     correctAnswer: 2,
-    explanation: "Farcaster frames are not enough interesting content."
+    explanation: "Use sdk.on() to set up listeners for adding, removing frames, enable or disable notifications."
   },  
   {
     id: 6,
-    question: "Which is not a feature to be improved with v2 frames?",
+    question: "What is the frames v2 manifest?",
+    options: [
+      "A call to action for builders to stay united and break their chains.",
+      "A document with info about the frame and its builder.",
+      "A document with info about the passengers of the frame.",
+      "None of them is right."
+    ],
+    correctAnswer: 1,
+    explanation: "The manifest located in /.well-known/farcaster.json is a document with info about the frame and signed by the builder."
+  },  
+  {
+    id: 7,
+    question: "What are right context locations?",
+    options: [
+      "Frame, channel and message.",
+      "Launcher, notification, channel and cast.",
+      "Channel, cast and notification.",
+      "None of them is right."
+    ],
+    correctAnswer: 2,
+    explanation: "A frame can be launched from the launcher, a notification, a channel or from cast."
+  }, 
+  {
+    id: 8,
+    question: "What is the frame playground?",
+    options: [
+      "A new gaming frame.",
+      "Basic frame builder.",
+      "Where frame devs have fun.",
+      "Developer tools for frame builders."
+    ],
+    correctAnswer: 3,
+    explanation: "The frame playground is a tool created by warpcast for frame developers."
+  },    
+  {
+    id: 8,
+    question: "Which is not a feature to be improved with frames v2?",
     options: [
       "Interactivity.",
       "User Retention.",
@@ -89,7 +125,7 @@ const questions: Question[] = [
     explanation: "Farcaster frames are not enough interesting content."
   },   
   {
-    id: 7,
+    id: 10,
     question: "What is a farcaster frame v2?",
     options: [
       "Just a normal webapp.",
