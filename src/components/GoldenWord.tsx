@@ -10,6 +10,7 @@ import {
 } from "wagmi";
 import { useRouter } from 'next/navigation';
 import { encodeFunctionData, parseEther } from 'viem';
+import { base } from 'viem/chains';
 import { DisplayGoldenWord } from "~/components/DisplayGoldenWord";
 import { config } from "~/components/WagmiProvider";
 import { Button } from "~/components/ui/Button";
@@ -23,6 +24,7 @@ export default function GoldenWord() {
   const [isSDKLoaded, setIsSDKLoaded] = useState(false);
   //const [context, setContext] = useState<Context.FrameContext>();
   const [inputText, setInputText] = useState<string | null>(null);
+  const [newWord, setNewWord] = useState<string | null>(null);
   const [txHash, setTxHash] = useState<string | null>(null);
 
   const { address, isConnected } = useAccount();
@@ -70,10 +72,12 @@ export default function GoldenWord() {
           functionName: "goldenWord",
           args: [inputText]
         }),
+        chainId: base.id,
         value: parseEther("0.000069420") as bigint
       },
       {
         onSuccess: (hash) => {
+          setNewWord(inputText);
           setTxHash(hash);
         },
       }
@@ -97,7 +101,7 @@ export default function GoldenWord() {
     const notifyNewWord = async () => {
       const fid = (await sdk.context)?.user?.fid;
       if (!fid || !inputText) return;
-      await fetch("/api/notis/new-word", {
+      await fetch("/api/words/new-word", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -107,9 +111,10 @@ export default function GoldenWord() {
           word: inputText
         }),
       });
+      setNewWord(null);
     }
     notifyNewWord();
-  }, [isConfirmed, inputText]);
+  }, [isConfirmed, newWord]);
 
   const renderError = (error: Error | null) => {
     if (!error) return null;

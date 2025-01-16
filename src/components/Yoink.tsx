@@ -10,6 +10,7 @@ import {
 } from "wagmi";
 import { useRouter } from 'next/navigation';
 import { encodeFunctionData } from 'viem';
+import { base } from 'viem/chains';
 import { config } from "~/components/WagmiProvider";
 import { Button } from "~/components/ui/Button";
 import { yoinkAbi } from "~/abis/yoinkAbi";
@@ -69,6 +70,7 @@ export default function Yoink() {
       {
         to: contractAddress,
         data: txData || "0x9846cd9efc000023c0",
+        chainId: base.id
       },
       {
         onSuccess: (hash) => {

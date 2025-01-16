@@ -10,6 +10,7 @@ import {
 } from "wagmi";
 import { useRouter } from 'next/navigation';
 import { encodeFunctionData } from 'viem';
+import { base } from 'viem/chains';
 import { DisplayFreeWord } from "~/components/DisplayFreeWord";
 import { config } from "~/components/WagmiProvider";
 import { Button } from "~/components/ui/Button";
@@ -23,6 +24,7 @@ export default function FreeWord() {
   const [isSDKLoaded, setIsSDKLoaded] = useState(false);
   //const [context, setContext] = useState<Context.FrameContext>();
   const [inputText, setInputText] = useState<string | null>(null);
+  const [newWord, setNewWord] = useState<string | null>(null);
   const [txHash, setTxHash] = useState<string | null>(null);
 
   const { address, isConnected } = useAccount();
@@ -70,9 +72,11 @@ export default function FreeWord() {
           functionName: "freeWord",
           args: [inputText]
         }),
+        chainId: base.id
       },
       {
         onSuccess: (hash) => {
+          setNewWord(inputText);
           setTxHash(hash);
         },
       }
@@ -95,20 +99,21 @@ export default function FreeWord() {
   useEffect(() => {
     const notifyNewWord = async () => {
       const fid = (await sdk.context)?.user?.fid;
-      if (!fid || !inputText) return;
-      await fetch("/api/notis/new-word", {
+      if (!fid || !newWord) return;
+      await fetch("/api/words/new-word", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
           fid,
-          word: inputText
+          word: newWord
         }),
       });
+      setNewWord(null);
     }
     notifyNewWord();
-  }, [isConfirmed, inputText]);
+  }, [isConfirmed, newWord]);
 
   const renderError = (error: Error | null) => {
     if (!error) return null;
@@ -136,7 +141,7 @@ export default function FreeWord() {
               <Label>
                 Just write something...
               </Label>
-              <Input maxLength={32} onChange={(e) => onInputChange(e.target.value)} />
+              <Input maxLength={32} onChange={(e) => onInputChange(e.target.value)} disabled={isSendTxPending} />
               {inputText &&
               <div className="p-2 bg-gray-100 dark:bg-gray-800 rounded-lg my-2">
                 <pre className="font-mono text-xs whitespace-pre-wrap break-words max-w-[260px] overflow-x-">
