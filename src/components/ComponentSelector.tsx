@@ -54,6 +54,14 @@ export default function ComponentSelector() {
       
       <div className="mb-4">
         <Button
+          onClick={() => router.push("/swap-token")}
+        >
+          Swap Token 
+        </Button>
+      </div> 
+      
+      <div className="mb-4">
+        <Button
           onClick={() => router.push("/words")}
         >
           Words 
