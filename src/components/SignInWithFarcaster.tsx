@@ -55,6 +55,24 @@ export function SIWF({ siwf }: { siwf: (nonce: string) => Promise<SignIn.SignInR
 
   return (
     <>
+      {session &&
+        <div className="my-2 p-2 text-xs overflow-x-scroll bg-gray-100 rounded-lg font-mono">
+          <div className="font-semibold text-gray-800 mb-1">Session</div>
+          <div className="whitespace-pre">{JSON.stringify(session, null, 2)}</div>
+        </div>
+      }
+      {signInFailure && !signingIn && (
+        <div className="my-2 p-2 text-xs overflow-x-scroll bg-gray-100 rounded-lg font-mono">
+          <div className="font-semibold text-gray-800 mb-1">SIWF Result</div>
+          <div className="whitespace-pre">{signInFailure}</div>
+        </div>
+      )}
+      {signInResult && !signingIn && (
+        <div className="my-2 p-2 text-xs overflow-x-scroll bg-gray-100 rounded-lg font-mono">
+          <div className="font-semibold text-gray-800 mb-1">SIWF Result</div>
+          <div className="whitespace-pre">{JSON.stringify(signInResult, null, 2)}</div>
+        </div>
+      )}    
       {status !== "authenticated" &&
         <Button
           onClick={handleSignIn}
@@ -71,24 +89,6 @@ export function SIWF({ siwf }: { siwf: (nonce: string) => Promise<SignIn.SignInR
           Sign out
         </Button>
       }
-      {session &&
-        <div className="my-2 p-2 text-xs overflow-x-scroll bg-gray-100 rounded-lg font-mono">
-          <div className="font-semibold text-gray-500 mb-1">Session</div>
-          <div className="whitespace-pre">{JSON.stringify(session, null, 2)}</div>
-        </div>
-      }
-      {signInFailure && !signingIn && (
-        <div className="my-2 p-2 text-xs overflow-x-scroll bg-gray-100 rounded-lg font-mono">
-          <div className="font-semibold text-gray-500 mb-1">SIWF Result</div>
-          <div className="whitespace-pre">{signInFailure}</div>
-        </div>
-      )}
-      {signInResult && !signingIn && (
-        <div className="my-2 p-2 text-xs overflow-x-scroll bg-gray-100 rounded-lg font-mono">
-          <div className="font-semibold text-gray-500 mb-1">SIWF Result</div>
-          <div className="whitespace-pre">{JSON.stringify(signInResult, null, 2)}</div>
-        </div>
-      )}
     </>
   );
 }

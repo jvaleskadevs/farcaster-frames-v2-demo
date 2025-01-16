@@ -21,6 +21,7 @@ import { AddFrameButton } from "~/components/AddFrame";
 import { RemindButton } from "~/components/RemindButton";
 import { ViewProfile } from "~/components/ViewProfile";
 import { SIWF } from "~/components/SignInWithFarcaster";
+import { SendEth } from "~/components/SendEth";
 import { truncateAddress } from "~/lib/truncateAddress";
 
 export default function Demo() {
@@ -337,7 +338,7 @@ export default function Demo() {
         </div>
       </div>
       
-      <div>
+      <div className="mb-4">
         <h2 className="font-2xl font-bold">Auth</h2>
         <SIWF siwf={siwf} />
       </div>
@@ -429,12 +430,25 @@ export default function Demo() {
         {isConnected && (
           <>
             <div className="mb-4">
+              <div className="p-2 bg-gray-100 dark:bg-gray-800 rounded-lg my-2">
+                <pre className="font-mono text-xs whitespace-pre-wrap break-words max-w-[260px] overflow-x-">
+                  Tip the dev.
+                </pre>
+              </div>              
+              <SendEth />
+            </div>
+            <div className="mb-4">
+              <div className="p-2 bg-gray-100 dark:bg-gray-800 rounded-lg my-2">
+                <pre className="font-mono text-xs whitespace-pre-wrap break-words max-w-[260px] overflow-x-">
+                  Yoink.
+                </pre>
+              </div> 
               <Button
                 onClick={sendTx}
                 disabled={!isConnected || isSendTxPending || chainId !== base.id}
                 isLoading={isSendTxPending}
               >
-                Send Transaction
+                Send Contract Transaction
               </Button>
               {isSendTxError && renderError(sendTxError)}
               {txHash && (
