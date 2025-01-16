@@ -207,9 +207,9 @@ export default function Quiz() {
                     ? 'bg-green-100 border-green-500 dark:bg-green-800 dark:border-green-600'
                     : selectedAnswer === index
                     ? 'bg-red-100 border-red-500 dark:bg-red-800 dark:border-red-600'
-                    : 'bg-gray-800'
-                  : 'bg-gray-800 hover:bg-gray-600'
-              } border border-gray-700 hover:border-gray-500 dark:border-gray-700`}
+                    : 'bg-gray-100 dark:bg-gray-800'
+                  : 'bg-gray-100 dark:bg-gray-800 hover:bg-gray-600'
+              } border border-gray-200 hover:border-gray-500 dark:border-gray-700`}
             >
               <div className="flex items-center justify-between">
                 <span>{option}</span>
@@ -242,7 +242,7 @@ export default function Quiz() {
 
         {showExplanation && currentQuestion === questions.length - 1 && (
          <>
-          <div className="text-center p-4 bg-green-700 rounded-lg">
+          <div className="text-center p-4 bg-green-200 dark:bg-green-700 rounded-lg">
             <p className="font-bold">You have completed the quiz! Congrats!</p>
             <p>Your score: {score} out of {questions.length}</p>
           </div>
