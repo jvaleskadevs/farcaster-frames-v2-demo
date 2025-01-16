@@ -3,7 +3,9 @@ import sdk from "@farcaster/frame-sdk";
 //import { Context } from '@farcaster/frame-core';
 import {
   useAccount,
+  useChainId,
   useSendTransaction,
+  useSwitchChain,
   useWaitForTransactionReceipt,
   useDisconnect,
   useConnect,
@@ -28,12 +30,20 @@ export default function GoldenWord() {
   const [txHash, setTxHash] = useState<string | null>(null);
 
   const { address, isConnected } = useAccount();
+  const chainId = useChainId();
   const {
     sendTransaction,
     error: sendTxError,
     isError: isSendTxError,
     isPending: isSendTxPending,
   } = useSendTransaction();
+  
+  const {
+    switchChain,
+    error: switchChainError,
+    isError: isSwitchChainError,
+    isPending: isSwitchChainPending,
+  } = useSwitchChain();
 
   const { disconnect } = useDisconnect();
   const { connect } = useConnect();
@@ -64,6 +74,7 @@ export default function GoldenWord() {
   }, []);
 
   const sendTx = useCallback(() => {
+    if (chainId !== base.id) switchChain({ chainId: base.id });
     sendTransaction(
       {
         to: contractAddress,
@@ -82,7 +93,7 @@ export default function GoldenWord() {
         },
       }
     );
-  }, [sendTransaction, inputText]);
+  }, [sendTransaction, inputText, chainId, switchChain]);
   
   const backToHome = () => {
     router.push("/");
@@ -154,12 +165,13 @@ export default function GoldenWord() {
             <div className="mb-8">
               <Button
                 onClick={sendTx}
-                disabled={!isConnected || isSendTxPending}
+                disabled={!isConnected || isSwitchChainPending || isSendTxPending}
                 isLoading={isSendTxPending}
               >
                 Send
               </Button>
               {isSendTxError && renderError(sendTxError)}
+              {isSwitchChainError && renderError(switchChainError)}
               {txHash && (
                 <div className="mt-2 text-xs">
                   <div>Hash: {truncateAddress(txHash)}</div>

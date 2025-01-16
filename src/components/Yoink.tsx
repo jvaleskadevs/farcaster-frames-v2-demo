@@ -3,7 +3,9 @@ import sdk from "@farcaster/frame-sdk";
 //import { Context } from '@farcaster/frame-core';
 import {
   useAccount,
+  useChainId,
   useSendTransaction,
+  useSwitchChain,
   useWaitForTransactionReceipt,
   useDisconnect,
   useConnect,
@@ -23,12 +25,20 @@ export default function Yoink() {
   const [txHash, setTxHash] = useState<string | null>(null);
 
   const { address, isConnected } = useAccount();
+  const chainId = useChainId();
   const {
     sendTransaction,
     error: sendTxError,
     isError: isSendTxError,
     isPending: isSendTxPending,
   } = useSendTransaction();
+  
+  const {
+    switchChain,
+    error: switchChainError,
+    isError: isSwitchChainError,
+    isPending: isSwitchChainPending,
+  } = useSwitchChain();
 
   const { disconnect } = useDisconnect();
   const { connect } = useConnect();
@@ -66,6 +76,7 @@ export default function Yoink() {
   });
 
   const sendTx = useCallback(() => {
+    if (chainId !== base.id) switchChain({ chainId: base.id });
     sendTransaction(
       {
         to: contractAddress,
@@ -78,7 +89,7 @@ export default function Yoink() {
         },
       }
     );
-  }, [txData, sendTransaction]);
+  }, [txData, sendTransaction, chainId, switchChain]);
   
   const backToHome = () => {
     router.push("/");
@@ -109,12 +120,13 @@ export default function Yoink() {
             <div className="mb-4">
               <Button
                 onClick={sendTx}
-                disabled={!isConnected || isSendTxPending}
+                disabled={!isConnected || isSwitchChainPending || isSendTxPending}
                 isLoading={isSendTxPending}
               >
                 Yoink
               </Button>
               {isSendTxError && renderError(sendTxError)}
+              {isSwitchChainError && renderError(switchChainError)}
               {txHash && (
                 <div className="mt-2 text-xs">
                   <div>Hash: {truncateAddress(txHash)}</div>
