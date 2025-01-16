@@ -8,13 +8,17 @@ While you can access the website with no problem and get access to the static co
 This application includes code from other educational resources like links to the docs, all the links from the v2frames website, the og frames demo by deodad and horsefacts, and adapted versions of the swap token and yoink components by horsefacts.
 The idea is to showcase how easy is to stack educational content and components from several sources and encourage the collaboration for building a better educational tool.
 
+#### Showcase
+
+A short video exploring the app can be found [here.](https://www.youtube.com/shorts/n6TVlqgExRo)
+
 ### Explore, Learn, Reuse, Contribute
 
 All components and sections are designed to help builders in the process of learning and building frames. Including the most essential and basic features like reading and writing onchain transactions or notifications. They all are reusable and we encourage everyone to build and contribute with their own components and help growing this educational application.
 
 Every component include a github link to access the code of the component easily. Every component is loading the farcaster sdk and context and calling the `sdk.actions.ready` function, allowing easy reusability, just copy pasting the component.
 
-The examples, the quiz, the tutorials and guides are all designed to grow with your collaboration and help us creating the ultimate learning reosurce for building frames.
+The examples, the quiz, the tutorials and guides are all designed to grow with your collaboration and help us creating the ultimate learning resource for building frames.
 
 ### Basic Features
 
@@ -48,7 +52,7 @@ The examples, the quiz, the tutorials and guides are all designed to grow with y
 
 ### Onchain
 
-Onchain section include the same as wallet in previous section in a more accesible under a well known word that resonates with all of us. Onchain. 
+Onchain section include the same as wallet in previous section in a more accesible way under a well known word that resonates with all of us, onchain. 
 
 #### Features
 
@@ -86,6 +90,7 @@ The Words section is the more complex including a mix of everything in a very si
 #### Features
 
  - Farcaster sdk.
+ - Smart contract. (in the contracts folder)
  - Read onchain data.
  - Write onchain data. Send free/paid transactions.
  - Notifications. Receive notification after set a new word.
