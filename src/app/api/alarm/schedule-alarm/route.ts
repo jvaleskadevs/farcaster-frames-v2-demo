@@ -1,28 +1,30 @@
 import { NextRequest, NextResponse } from "next/server";
-import { scheduleDailyNotificationProcessing } from "~/lib/queue";
+import { queueMessage } from "~/lib/queue";
 
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json();
-    const { fid, text } = body;
+    const { fid, text, timeLeft } = body;
 
-    if (!fid) {
+    if (!fid || typeof timeLeft !== "number") {
       return NextResponse.json(
-        { error: "Missing fid" },
+        { error: "Missing required fields" },
         { status: 400 },
       );
     }
 
-    const reminderId = `daily-alarm:${fid}`;
+    const sendAt = Math.floor(Date.now() / 1000) + timeLeft;
+    const reminderId = `alarm:${fid}:${sendAt}`;
 
-    await scheduleDailyNotificationProcessing({
-      url: "/api/notis/process-alarm",
-      body: JSON.stringify({
+    await queueMessage({
+      messageId: reminderId,
+      url: "/api/alarm/process-alarm",
+      body: {
         reminderId,
         fid,
         text
-      }),
-      messageId: reminderId
+      },
+      notBefore: sendAt,
     });
 
     return NextResponse.json({ success: true });

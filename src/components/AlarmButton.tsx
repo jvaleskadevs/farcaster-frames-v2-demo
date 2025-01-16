@@ -53,7 +53,7 @@ export function AlarmButton({ text, timeLeft, isDaily, fid }: { text?: string, t
       }
       
       if (isDaily) {
-        await fetch("/api/notis/schedule-daily-alarm", {
+        await fetch("/api/alarm/schedule-daily-alarm", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
@@ -63,7 +63,7 @@ export function AlarmButton({ text, timeLeft, isDaily, fid }: { text?: string, t
           })
         });        
       } else {
-        await fetch("/api/notis/schedule-alarm", {
+        await fetch("/api/alarm/schedule-alarm", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",

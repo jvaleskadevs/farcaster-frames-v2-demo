@@ -209,7 +209,7 @@ export default function Quiz() {
                     ? 'bg-red-100 border-red-500 dark:bg-red-800 dark:border-red-600'
                     : 'bg-gray-800'
                   : 'bg-gray-800 hover:bg-gray-600'
-              } border border-gray-700 hover:border-gray-500`}
+              } border border-gray-700 hover:border-gray-500 dark:border-gray-700`}
             >
               <div className="flex items-center justify-between">
                 <span>{option}</span>
@@ -225,7 +225,7 @@ export default function Quiz() {
         </div>
 
         {showExplanation && (
-          <div className="mt-4 p-4 bg-purple-800 rounded-lg">
+          <div className="mt-4 p-4 bg-purple-200 dark:bg-purple-800 rounded-lg">
             <p className="font-medium">Explanation:</p>
             <p>{question.explanation}</p>
           </div>

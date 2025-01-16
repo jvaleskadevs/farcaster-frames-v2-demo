@@ -10,7 +10,7 @@ import {
 import Image from "next/image";
 import { parseUnits, formatUnits, BaseError } from "viem";
 import qs from "qs";
-
+import { useRouter } from 'next/navigation';
 import { Button } from "~/components/ui/Button";
 import { truncateAddress } from "~/lib/truncateAddress";
 import { QuoteResponse } from "~/lib/zeroex";
@@ -54,6 +54,7 @@ const AFFILIATE_FEE = 25;
 const PROTOCOL_GUILD_ADDRESS = "0x32e3C7fD24e175701A35c224f2238d18439C7dBC";
 
 export default function SwapToken({ token }: { token?: string } = { token: "usdc" }) {
+  const router = useRouter();
   const [isSDKLoaded, setIsSDKLoaded] = useState(false);
 
   const sellToken = ETH;
@@ -194,6 +195,14 @@ export default function SwapToken({ token }: { token?: string } = { token: "usdc
     fetchPrice,
     fetchQuote,
   ]);
+  
+  const openGithub = useCallback(() => {
+    sdk.actions.openUrl("https://github.com/jvaleskadevs/farcaster-frames-v2-demo/blob/main/src/components/SwapToken.tsx");
+  }, []);
+  
+  const backToHome = () => {
+    router.push("/");
+  }
 
   if (!isSDKLoaded) {
     return <div>Loading...</div>;
@@ -320,6 +329,19 @@ export default function SwapToken({ token }: { token?: string } = { token: "usdc
             Error: {(error as BaseError).shortMessage || error.message}
           </div>
         )}
+      </div>
+      
+      <div className="mb-8">
+        <div className="p-2 bg-gray-100 dark:bg-gray-800 rounded-lg my-2">
+          <pre className="font-mono text-xs whitespace-pre-wrap break-words max-w-[260px] overflow-x-">
+            Open this component in github
+          </pre>
+        </div>
+        <Button onClick={openGithub}>View Code</Button>
+      </div>
+      
+      <div className="mb-4">
+        <Button onClick={backToHome}>Back</Button>
       </div>
     </div>
   );
