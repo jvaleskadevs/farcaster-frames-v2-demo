@@ -111,7 +111,7 @@ export default function GoldenWord() {
   useEffect(() => {
     const notifyNewWord = async () => {
       const fid = (await sdk.context)?.user?.fid;
-      if (!fid || !inputText) return;
+      if (!fid || !newWord) return;
       await fetch("/api/words/new-word", {
         method: "POST",
         headers: {
@@ -119,7 +119,7 @@ export default function GoldenWord() {
         },
         body: JSON.stringify({
           fid,
-          word: inputText
+          word: newWord
         }),
       });
       setNewWord(null);

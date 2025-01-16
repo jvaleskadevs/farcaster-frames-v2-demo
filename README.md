@@ -27,7 +27,7 @@ The examples, the quiz, the tutorials and guides are all designed to grow with y
  - Open external and internal links.
  - Navigate between screens, open/close the frame.
  - Auth. Sign In With Farcaster.
- - Event Listeners on add frame, remove frame, enable/disable notifications.
+ - Event Listeners on add frame, remove frame, enable/disable notifications, primary button clicked.
  - Connect, disconnect, switch chain, send eth, call a contract, sign message and typed data.
  - Webhook and notifications management.
  - Basic instant notifications.
@@ -38,12 +38,14 @@ The examples, the quiz, the tutorials and guides are all designed to grow with y
  - Fetch quotes and prices. Perform a swap.
  - Tutorials, docs and quiz.
 
+## Sections
+
 ### Demo
 
 #### Features
 
  - Farcaster sdk.
- - Social. Open profiles with `sdk.viewProfile{ fid }`.
+ - Social. Open profiles with `sdk.actions.viewProfile{ fid }`.
  - Actions and Navigation. AddFrame, open links, close frame...
  - Sign In With Farcaster. Try the SIWF button.
  - Event Listeners. Add frame, remove frame, enable/disable notifications.
@@ -106,10 +108,18 @@ The classic yoink game by horsefacts.
  - Farcaster sdk.
  - Write onchain data.
  - Navigation.
+
+### Docs
+
+All the og framesv2 website links styled into purple buttons and ofc, the docs.
+
+### Tutorials
+
+Initially including the demo and notification tutorials. Open to grow with community contributions.
  
 ### Quiz
 
-Just a small quiz with 10 questions to test your knowdledge. Good luck. 💜️
+Just a small quiz with 10 questions to test your knowledge. Good luck. 💜️
 
 
 ## Set Up

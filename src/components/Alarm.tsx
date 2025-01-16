@@ -5,6 +5,7 @@ import { useRouter } from 'next/navigation';
 import { Input } from "~/components/ui/input";
 import { Label } from "~/components/ui/label";
 import { Button } from "~/components/ui/Button";
+import { CheckBox } from "~/components/ui/CheckBox";
 import { AlarmButton } from "~/components/AlarmButton";
 
 export default function Alarm() {
@@ -13,6 +14,7 @@ export default function Alarm() {
   const [context, setContext] = useState<Context.FrameContext>();
   const [inputText, setInputText] = useState<string | undefined>(undefined);
   const [inputDate, setInputDate] = useState<number | undefined>(undefined);
+  const [isDaily, setIsDaily] = useState(false);
   
   useEffect(() => {
     const load = async () => {
@@ -40,6 +42,10 @@ export default function Alarm() {
   const onInputDateChange = (value: string | number | Date) => {
     setInputDate(formatDate(value));
   }
+  
+  const onCheckBoxChange = () => {
+    setIsDaily(!isDaily);
+  };
   
   const formatDate = (date: string | number | Date): number | undefined => {
     try {
@@ -72,7 +78,7 @@ export default function Alarm() {
         </div>}
       </div> 
       
-      <div className="mb-4">
+      <div className="mb-0">
         <Label>
           Select when to be notified
         </Label>
@@ -85,10 +91,13 @@ export default function Alarm() {
         </div>}
       </div> 
       
+      <CheckBox labelText="Check to set a daily reminder" checked={isDaily} onChange={onCheckBoxChange}  />
+      
       <AlarmButton
         text={inputText}
         fid={context?.user?.fid}
         timeLeft={inputDate}
+        isDaily={isDaily}
       />     
       
       <div className="mb-8">
