@@ -111,7 +111,7 @@ export default function SwapToken({ token }: { token?: string } = { token: "usdc
     async (params: unknown) => {
       setIsPriceLoading(true);
       try {
-        const response = await fetch(`/api/price?${qs.stringify(params)}`);
+        const response = await fetch(`/api/swap/price?${qs.stringify(params)}`);
         const data = await response.json();
 
         if (data?.validationErrors?.length > 0) {
@@ -140,7 +140,7 @@ export default function SwapToken({ token }: { token?: string } = { token: "usdc
     async (params: unknown) => {
       setIsPriceLoading(true);
       try {
-        const response = await fetch(`/api/quote?${qs.stringify(params)}`);
+        const response = await fetch(`/api/swap/quote?${qs.stringify(params)}`);
         const data = await response.json();
         setQuote(data);
       } finally {
