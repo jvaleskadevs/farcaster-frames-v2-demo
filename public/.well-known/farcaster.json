@@ -9,7 +9,7 @@
     "name": "Frames V2",
     "iconUrl": "https://farcaster-frames-v2-demo.vercel.app/logo.png",
     "homeUrl": "https://farcaster-frames-v2-demo.vercel.app/",
-    "imageUrl": "https://farcaster-frames-v2-demo.vercel.app/logo.png",
+    "imageUrl": "https://farcaster-frames-v2-demo.vercel.app/opengraph-image",
     "buttonTitle": "Learn",
     "splashImageUrl": "https://farcaster-frames-v2-demo.vercel.app/logo.png",
     "splashBackgroundColor": "#000",
