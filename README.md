@@ -5,7 +5,7 @@ Farcaster Frames V2 Demo is the ultimate educational tool to start the explorati
 #### Disclaimer
 While you can access the website with no problem and get access to the static content, we encourage everyone to open it in the warpcast app or any other farcaster client for a better performance and get access to all features.
 
-This application includes code from other educational resources like links to the docs, all the links from the v2frames website, the og frames demo by deodad and horsefacts, and adapted versions of the swap token and yoink components by horsefacts.
+This application includes code from other educational resources like links to the docs, all the links from the v2frames website, the og frames demo by deodad, cmlad and horsefacts, and adapted versions of the swap token and yoink components by horsefacts.
 The idea is to showcase how easy is to stack educational content and components from several sources and encourage the collaboration for building a better educational tool.
 
 #### Showcase
