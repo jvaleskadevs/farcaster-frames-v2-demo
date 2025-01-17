@@ -25,7 +25,7 @@ const frame = {
       name: "Farcaster Frames V2 Demo",
       url: "https://farcaster-frames-v2-demo.vercel.app",
       splashImageUrl: "https://farcaster-frames-v2-demo.vercel.app/logo.png",
-      splashBackgroundColor: "#fff",
+      splashBackgroundColor: "#000",
     },
   },
 };
