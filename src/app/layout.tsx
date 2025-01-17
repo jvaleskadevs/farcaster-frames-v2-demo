@@ -15,10 +15,33 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
-export const metadata: Metadata = {
-  title: "Farcaster Frames v2 Demo",
-  description: "A Farcaster Frames v2 demo app",
+const frame = {
+  version: "next",
+  imageUrl: `https://farcaster-frames-v2-demo.vercel.app/opengraph-image`,
+  button: {
+    title: "Learn",
+    action: {
+      type: "launch_frame",
+      name: "Farcaster Frames V2 Demo",
+      url: "https://farcaster-frames-v2-demo.vercel.app",
+      splashImageUrl: "https://farcaster-frames-v2-demo.vercel.app/logo.png",
+      splashBackgroundColor: "#fff",
+    },
+  },
 };
+
+export async function generateMetadata(): Promise<Metadata> {
+  return {
+    title: "Farcaster Frames V2 Demo",
+    openGraph: {
+      title: "Farcaster Frames V2 Demo",
+      description: "The ultimate learning tool for building v2 frames.",
+    },
+    other: {
+      "fc:frame": JSON.stringify(frame),
+    },
+  };
+}
 
 export default async function RootLayout({
   children,
